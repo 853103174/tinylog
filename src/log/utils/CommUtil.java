@@ -17,7 +17,7 @@ import log.constants.Constant;
 public class CommUtil {
 
     /** 配置文件名 */
-    private static final String CONFIG_FILE_NAME = "fastlog.yam";
+    private static final String CONFIG_FILE_NAME = "log.yam";
 
     /** 配置map */
     private static HashMap<String, Object[]> propsMap = new HashMap<String, Object[]>();
