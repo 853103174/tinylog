@@ -27,7 +27,7 @@ public class CommonsLogging implements Log {
     public void debug(Object message, Throwable t) {
         StringBuilder messageBuilder=new StringBuilder();
         if(message!=null){
-            messageBuilder.append(message).append("\n");
+            messageBuilder.append(message).append(TinyLog.endStr);
         }
         if(t!=null){
             messageBuilder.append(CommUtil.getExpStack(t));
@@ -44,7 +44,7 @@ public class CommonsLogging implements Log {
     public void info(Object message, Throwable t) {
         StringBuilder messageBuilder=new StringBuilder();
         if(message!=null){
-            messageBuilder.append(message).append("\n");
+            messageBuilder.append(message).append(TinyLog.endStr);
         }
         if(t!=null){
             messageBuilder.append(CommUtil.getExpStack(t));
@@ -61,7 +61,7 @@ public class CommonsLogging implements Log {
     public void warn(Object message, Throwable t) {
         StringBuilder messageBuilder=new StringBuilder();
         if(message!=null){
-            messageBuilder.append(message).append("\n");
+            messageBuilder.append(message).append(TinyLog.endStr);
         }
         if(t!=null){
             messageBuilder.append(CommUtil.getExpStack(t));
@@ -78,7 +78,7 @@ public class CommonsLogging implements Log {
     public void error(Object message, Throwable t) {
         StringBuilder messageBuilder=new StringBuilder();
         if(message!=null){
-            messageBuilder.append(message).append("\n");
+            messageBuilder.append(message).append(TinyLog.endStr);
         }
         if(t!=null){
             messageBuilder.append(CommUtil.getExpStack(t));
