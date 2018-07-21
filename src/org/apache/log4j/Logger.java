@@ -26,7 +26,7 @@ public class Logger {
 	public void log(String callerFQCN, Priority p, Object message, Throwable t) {
 		StringBuilder messageBuilder = new StringBuilder();
 		if (message != null) {
-			messageBuilder.append(message).append("\n");
+			messageBuilder.append(message).append(TinyLog.endStr);
 		}
 		if (t != null) {
 			messageBuilder.append(CommUtil.getExpStack(t));
