@@ -1,15 +1,14 @@
 package log.strategy;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
 import log.constants.Constant;
-import log.utils.CommUtil;
 
 /**
  * 
@@ -27,6 +26,7 @@ public class TinyLog {
     private static String lastPCDate = "";
     //是否输出到控制台
     private static boolean consolePrint = Constant.CONSOLE_PRINT;
+    public static final String endStr = "\r\n";
     
 	private TinyLog() {
     }
@@ -122,8 +122,7 @@ public class TinyLog {
                 StringBuilder log = new StringBuilder(logMsg.length() + 100);
                 log.append("[").append(Constant.LOG_DESC_MAP.get(level))
                    .append("] ").append(now).append(" ").append(LocalTime.now())
-                   .append(" ").append(logMsg)
-                   .append("\n");
+                   .append(" ").append(logMsg).append(endStr);
                 
                 if(consolePrint){
                     System.err.print(new String(log.toString().getBytes(Constant.CHARSET_NAME),Constant.CHARSET_NAME));
@@ -202,11 +201,12 @@ public class TinyLog {
      * @return 返回输出内容大小
      */
     private void writeToFile(StringBuilder log){
-        try(OutputStream fout = new FileOutputStream(fullLogFileName, true)) {
-            byte[] tmpBytes = CommUtil.StringToBytes(log.toString());
-            fout.write(tmpBytes);
-            currLogSize += tmpBytes.length;
-            fout.flush();
+        try(FileWriter out=new FileWriter(fullLogFileName, true);
+        	BufferedWriter bw=new BufferedWriter(out);) {
+            bw.write(log.toString());
+            bw.newLine();
+            currLogSize += log.length();
+            bw.flush();
         } catch (Exception e) {
         	e.printStackTrace();
         }
