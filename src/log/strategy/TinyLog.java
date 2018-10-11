@@ -134,7 +134,7 @@ public class TinyLog {
                    //异步方式写日志到文件
                    CompletableFuture.runAsync(() -> {
                 	   createLogFile(now, logFileName);
-                	   writeToFile(log);
+                	   writeToFile(now, logFileName, log);
                    });
                 }
             } catch (Exception e) {
@@ -200,8 +200,11 @@ public class TinyLog {
      *            日志文件内容
      * @return 返回输出内容大小
      */
-    private void writeToFile(StringBuilder log){
-        try(FileWriter out=new FileWriter(fullLogFileName, true);
+    private void writeToFile(String now, String logFileName, StringBuilder log){
+        StringBuilder path=new StringBuilder(30);
+        path.append(Constant.LOG_PATH).append("/").append(now)
+        	.append("/").append(logFileName).append(".txt");
+        try(FileWriter out=new FileWriter(path.toString(), true);
         	BufferedWriter bw=new BufferedWriter(out);) {
             bw.write(log.toString());
             bw.newLine();
