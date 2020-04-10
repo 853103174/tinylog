@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.locks.ReentrantLock;
 
 import log.constants.Constant;
 
@@ -17,15 +16,15 @@ import log.constants.Constant;
  */
 public class TinyLog {
 
-    private static final ReentrantLock lock = new ReentrantLock();
+    //private static final ReentrantLock lock = new ReentrantLock();
     //包括路径的完整日志名称 
-    private static String fullLogFileName = "";
+    //private String fullLogFileName = "";
     //当前日志文件大小
-    private static long currLogSize = 0;
+    private long currLogSize = 0;
     //上次写入时的日期
-    private static String lastPCDate = "";
+    private String lastPCDate = "";
     //是否输出到控制台
-    private static boolean consolePrint = Constant.CONSOLE_PRINT;
+    private boolean consolePrint = Constant.CONSOLE_PRINT;
     public static final String endStr = "\r\n";
     
 	private TinyLog() {
@@ -40,7 +39,17 @@ public class TinyLog {
     }
 
     public void setConsolePrint(boolean consolePrint) {
-		TinyLog.consolePrint = consolePrint;
+		this.consolePrint = consolePrint;
+		
+    	// 异步判断日志root路径是否存在，不存在则先创建
+		if(!consolePrint){
+	        CompletableFuture.runAsync(() -> {
+	            File rootDir = new File(Constant.LOG_PATH);
+	            if (!rootDir.exists() || !rootDir.isDirectory()) {
+	                rootDir.mkdirs();
+	            }
+	        });
+		}
 	}
 
     /**
@@ -125,9 +134,10 @@ public class TinyLog {
                    .append(" ").append(logMsg).append(endStr);
                 
                 if(consolePrint){
+                	//仅将日志打印到控制台
                     System.err.print(new String(log.toString().getBytes(Constant.CHARSET_NAME),Constant.CHARSET_NAME));
                 }else{
-                   //错误信息强制打印到控制台；若 CONSOLE_PRINT 配置为 true，也将日志打印到控制台
+                   //错误信息强制打印到控制台
                    if(Constant.ERROR == level || Constant.FATAL == level){
                        System.err.print(new String(log.toString().getBytes(Constant.CHARSET_NAME),Constant.CHARSET_NAME));
                    }
@@ -138,7 +148,6 @@ public class TinyLog {
                    });
                 }
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
@@ -146,17 +155,12 @@ public class TinyLog {
     /**
      * 创建日志文件
      * 
+     * @param now
      * @param logFileName
      */
     private void createLogFile(String now, String logFileName) {
-        // 判断日志root路径是否存在，不存在则先创建
-        File rootDir = new File(Constant.LOG_PATH);
-        if (!rootDir.exists() || !rootDir.isDirectory()) {
-            rootDir.mkdirs();
-        }
-
         // 如果超过单个文件大小，则拆分文件
-		if (currLogSize >= Constant.SINGLE_LOG_FILE_SIZE) {
+        /*if (currLogSize >= Constant.SINGLE_LOG_FILE_SIZE) {
 			try {
 				lock.lock();
 				File oldFile = new File(fullLogFileName);
@@ -170,21 +174,21 @@ public class TinyLog {
 			} finally {
 				lock.unlock();
 			}
-		}
+		}*/
 		
         // 创建文件
         if (currLogSize==0||!lastPCDate.equals(now)) {
             lastPCDate = now;
             StringBuilder path=new StringBuilder(30);
             path.append(Constant.LOG_PATH)
-            	.append("/").append(now);
+            	.append("/").append(logFileName);
             File file = new File(path.toString());
             if (!file.exists()) {
                 file.mkdir();
             }
-            path.append("/").append(logFileName).append(".txt");
-            fullLogFileName=path.toString();
-            file = new File(fullLogFileName);
+            path.append("/").append(now).append(".txt");
+            //fullLogFileName=path.toString();
+            file = new File(path.toString());
             if (file.exists()) {
                 currLogSize = file.length();
             } else {
@@ -202,16 +206,15 @@ public class TinyLog {
      */
     private void writeToFile(String now, String logFileName, StringBuilder log){
         StringBuilder path=new StringBuilder(30);
-        path.append(Constant.LOG_PATH).append("/").append(now)
-        	.append("/").append(logFileName).append(".txt");
+        path.append(Constant.LOG_PATH).append("/").append(logFileName)
+        	.append("/").append(now).append(".txt");
         try(FileWriter out=new FileWriter(path.toString(), true);
         	BufferedWriter bw=new BufferedWriter(out);) {
             bw.write(log.toString());
             bw.newLine();
-            currLogSize += log.length();
+            //currLogSize += log.length();
             bw.flush();
         } catch (Exception e) {
-        	e.printStackTrace();
         }
     }
 
