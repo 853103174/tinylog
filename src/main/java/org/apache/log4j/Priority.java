@@ -2,8 +2,8 @@ package org.apache.log4j;
 
 public class Priority {
 
-    protected String logFileName;
+	protected String logFileName;
 
-    protected int level;
+	protected int level;
 
 }
