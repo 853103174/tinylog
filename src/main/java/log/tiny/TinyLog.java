@@ -16,42 +16,28 @@ import log.util.Constant;
  */
 public class TinyLog {
 
-	// 上次写入时的日期
-	private String lastDate = "";
-	// 包括路径的完整日志名称
-	private String fullLogFileName = "";
 	// 备份文件个数
 	private static int bakNum = 0;
-	// 当前日志文件大小
-	private static long logSize = 0;
-	// 是否输出到控制台
-	private boolean printConsole = Constant.PRINT_CONSOLE;
+	// 当前写入的日期
+	private static String today = null;
 	// 换行符
 	public static final String endStr = "\r\n";
+	// 是否输出到控制台
+	private boolean printConsole = Constant.PRINT_CONSOLE;
 
 	private TinyLog() {
 	}
 
-	private static class FastLogHolder {
+	private static class LogHolder {
 		private static final TinyLog instance = new TinyLog();
 	}
 
 	public static TinyLog getInstance() {
-		return FastLogHolder.instance;
+		return LogHolder.instance;
 	}
 
 	public void setPrintConsole(boolean printConsole) {
 		this.printConsole = printConsole;
-
-		// 异步判断日志root路径是否存在，不存在则先创建
-		if (!printConsole) {
-			CompletableFuture.runAsync(() -> {
-				File rootDir = new File(Constant.LOG_PATH);
-				if (!rootDir.exists() || !rootDir.isDirectory()) {
-					rootDir.mkdirs();
-				}
-			});
-		}
 	}
 
 	/**
@@ -119,14 +105,14 @@ public class TinyLog {
 	/**
 	 * 写日志
 	 * 
-	 * @param logFileName
-	 *            日志文件名
+	 * @param folder
+	 *            日志文件的父文件夹
 	 * @param level
 	 *            日志级别
 	 * @param logMsg
 	 *            日志内容
 	 */
-	public void writeLog(String logFileName, int level, String logMsg) {
+	public void writeLog(String folder, int level, String logMsg) {
 		if (logMsg != null && Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
 			try {
 				String now = LocalDate.now().toString();
@@ -151,74 +137,45 @@ public class TinyLog {
 					}
 					// 异步方式写日志到文件
 					CompletableFuture.runAsync(() -> {
-						createLogFile(now, logFileName);
-						writeToFile(now, logFileName, log);
+						synchronized (endStr) {
+							if (!now.equals(today)) {
+								bakNum = 0;
+								today = now;
+							}
+							// 创建文件
+							StringBuilder path = new StringBuilder(50);
+							path.append(Constant.LOG_PATH).append("/").append(folder);
+							File file = new File(path.toString());
+							if (!file.exists()) {
+								file.mkdirs();
+							}
+							path.append("/").append(now).append(".txt");
+							String fullName = path.toString();
+
+							// 输出日志到文件
+							try (FileWriter out = new FileWriter(fullName, true);
+									BufferedWriter bw = new BufferedWriter(out);) {
+								bw.write(log.toString());
+								bw.newLine();
+								bw.flush();
+							} catch (Exception e) {
+							}
+
+							// 如果超过单个文件大小，则拆分文件
+							file = new File(fullName);
+							long logSize = file.length();
+							if (logSize >= Constant.LOG_FILE_SIZE) {
+								path = new StringBuilder(50);
+								path.append(Constant.LOG_PATH).append("/").append(folder)
+									.append("/").append(now).append("-")
+									.append(String.format("%03d", ++bakNum)).append(".txt");
+								file.renameTo(new File(path.toString()));
+							}
+						}
 					});
 				}
 			} catch (Exception e) {
 			}
-		}
-	}
-
-	/**
-	 * 创建日志文件
-	 * 
-	 * @param now
-	 * @param logFileName
-	 */
-	private void createLogFile(String now, String logFileName) {
-		// 创建文件
-		if (logSize == 0 || !lastDate.equals(now)) {
-			bakNum = 0;
-			lastDate = now;
-			StringBuilder path = new StringBuilder(30);
-			path.append(Constant.LOG_PATH).append("/").append(logFileName);
-			File file = new File(path.toString());
-			if (!file.exists()) {
-				file.mkdir();
-			}
-			path.append("/").append(now).append(".txt");
-			fullLogFileName = path.toString();
-			file = new File(fullLogFileName);
-			if (file.exists()) {
-				logSize = file.length();
-			} else {
-				logSize = 0;
-			}
-		} /*else {
-			synchronized (endStr) {
-				// 如果超过单个文件大小，则拆分文件
-				if (logSize >= Constant.LOG_FILE_SIZE) {
-					File oldFile = new File(fullLogFileName);
-					if (oldFile.exists()) {
-						StringBuilder newFileName = new StringBuilder(50);
-						newFileName.append(Constant.LOG_PATH).append("/").append(logFileName).append("/")
-							.append(now).append("_bak").append(++bakNum).append(".txt");
-						File newFile = new File(newFileName.toString());
-						oldFile.renameTo(newFile);
-						logSize = 0;
-					}
-				}
-			}
-		}*/
-	}
-
-	/**
-	 * 输出日志到文件
-	 * 
-	 * @param log
-	 *            日志文件内容
-	 * @return 返回输出内容大小
-	 */
-	private void writeToFile(String now, String logFileName, StringBuilder log) {
-		StringBuilder path = new StringBuilder(30);
-		path.append(Constant.LOG_PATH).append("/").append(logFileName).append("/").append(now).append(".txt");
-		try (FileWriter out = new FileWriter(path.toString(), true); BufferedWriter bw = new BufferedWriter(out);) {
-			bw.write(log.toString());
-			bw.newLine();
-			bw.flush();
-			logSize += log.length();
-		} catch (Exception e) {
 		}
 	}
 

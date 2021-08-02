@@ -15,7 +15,7 @@ import java.util.Properties;
 public class CommUtil {
 
 	/** 配置文件名 */
-	private static final String CONFIG_FILE_NAME = "log.conf";
+	private static final String CONFIG_FILE_NAME = "tinylog.conf";
 
 	/** 配置map */
 	private static HashMap<String, Object[]> propsMap = new HashMap<String, Object[]>();
@@ -51,8 +51,7 @@ public class CommUtil {
 		String value = getConfig(keyName);
 		if (value != null && value.length() > 0) {
 			try {
-				int parseValue = Integer.parseInt(value.trim());
-				return parseValue;
+				return Integer.parseInt(value.trim());
 			} catch (Exception e) {
 				return defaultValue;
 			}
@@ -74,8 +73,7 @@ public class CommUtil {
 		String value = getConfig(keyName);
 		if (value != null && value.length() > 0) {
 			try {
-				long parseValue = Long.parseLong(value.trim());
-				return parseValue;
+				return Long.parseLong(value.trim());
 			} catch (Exception e) {
 				return defaultValue;
 			}
@@ -158,7 +156,7 @@ public class CommUtil {
 	 *            源字符串
 	 * @return 字节数组
 	 */
-	public static byte[] StringToBytes(String str) {
+	public static byte[] string2bytes(String str) {
 		try {
 			if (str == null || str.length() <= 0) {
 				return new byte[0];
