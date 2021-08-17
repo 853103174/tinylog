@@ -99,7 +99,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void writeLog(int level, String logMsg) {
-		writeLog(Constant.LOG_DESC_MAP.get(level), level, logMsg);
+		writeLog(Constant.LEVEL_DESC.get(level), level, logMsg);
 	}
 
 	/**
@@ -113,11 +113,11 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void writeLog(String folder, int level, String logMsg) {
-		if (logMsg != null && Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
+		if (Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
 			try {
 				String now = LocalDate.now().toString();
 				StringBuilder log = new StringBuilder(logMsg.length() + 100);
-				log.append("[").append(Constant.LOG_DESC_MAP.get(level)).append("] ").append(now).append(" ")
+				log.append("[").append(Constant.LEVEL_DESC.get(level)).append("] ").append(now).append(" ")
 						.append(LocalTime.now()).append(" ").append(logMsg).append(endStr);
 
 				if (printConsole) {

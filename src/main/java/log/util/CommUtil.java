@@ -50,11 +50,7 @@ public class CommUtil {
 	public static int getConfigByInt(String keyName, int defaultValue) {
 		String value = getConfig(keyName);
 		if (value != null && value.length() > 0) {
-			try {
-				return Integer.parseInt(value.trim());
-			} catch (Exception e) {
-				return defaultValue;
-			}
+			return Integer.parseInt(value.trim());
 		} else {
 			return defaultValue;
 		}
@@ -72,11 +68,7 @@ public class CommUtil {
 	public static long getConfigByLong(String keyName, long defaultValue) {
 		String value = getConfig(keyName);
 		if (value != null && value.length() > 0) {
-			try {
-				return Long.parseLong(value.trim());
-			} catch (Exception e) {
-				return defaultValue;
-			}
+			return Long.parseLong(value.trim());
 		} else {
 			return defaultValue;
 		}
@@ -109,16 +101,12 @@ public class CommUtil {
 	 */
 	private static String getConfig(String keyName) {
 		Properties props = null;
-		boolean bIsNeedLoadCfg = false;
+		boolean isNeedLoadCfg = false;
 
 		String filePath = CONFIG_FILE_NAME;
 		File cfgFile = new File(filePath);
 		if (!cfgFile.exists()) {
-			try {
-				filePath = CommUtil.class.getClassLoader().getResource(CONFIG_FILE_NAME).getPath();
-			} catch (Exception e) {
-				return null;
-			}
+			filePath = CommUtil.class.getClassLoader().getResource(CONFIG_FILE_NAME).getPath();
 			cfgFile = new File(filePath);
 			if (!cfgFile.exists()) {
 				return null;
@@ -127,17 +115,17 @@ public class CommUtil {
 
 		Object[] arrs = propsMap.get(filePath);
 		if (arrs == null) {
-			bIsNeedLoadCfg = true;
+			isNeedLoadCfg = true;
 		} else {
 			Long lastModify = (Long) arrs[0];
 			if (lastModify.longValue() != cfgFile.lastModified()) {
-				bIsNeedLoadCfg = true;
+				isNeedLoadCfg = true;
 			} else {
 				props = (Properties) arrs[1];
 			}
 		}
 
-		if (bIsNeedLoadCfg == true) {
+		if (isNeedLoadCfg == true) {
 			try (FileInputStream fis = new FileInputStream(cfgFile);) {
 				props = new Properties();
 				props.load(fis);
@@ -164,24 +152,23 @@ public class CommUtil {
 				return str.getBytes(Constant.CHARSET_NAME);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	/**
 	 * 将异常的堆栈信息转为字符串
 	 * 
-	 * @param t
+	 * @param throwable
 	 *            异常
 	 * @return 异常的字符串描述
 	 */
-	public static String getExpStack(Throwable t) {
+	public static String getExpStack(Throwable throwable) {
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
-		PrintWriter pw = new PrintWriter(bo);
-		t.printStackTrace(pw);
-		pw.flush();
-		pw.close();
+		PrintWriter writer = new PrintWriter(bo);
+		throwable.printStackTrace(writer);
+		writer.flush();
+		writer.close();
 		return bo.toString();
 	}
 
