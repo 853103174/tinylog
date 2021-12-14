@@ -18,7 +18,7 @@ public abstract class Logger implements Serializable, BasicLogger {
 	private static final TinyLog log = TinyLog.getInstance();
 
 	public enum Level {
-		FATAL(4), ERROR(3), WARN(2), INFO(1), DEBUG(0), TRACE(0);
+		FATAL(6), ERROR(5), WARN(4), INFO(3), DEBUG(2), TRACE(1);
 
 		private int value;
 
@@ -45,19 +45,19 @@ public abstract class Logger implements Serializable, BasicLogger {
 		return name;
 	}
 
-	protected void doLog(Level level, String loggerClassName, Object message, Object[] parameters, Throwable thrown) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
+	protected void doLog(Level level, String loggerClassName, Object msg, Object[] parameters, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
 		}
 		if (parameters != null) {
-			messageBuilder.append(parameters.toString()).append(TinyLog.endStr);
+			infos.append(parameters.toString()).append(TinyLog.endStr);
 		}
-		if (thrown != null) {
-			messageBuilder.append(CommUtil.getExpStack(thrown));
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
 		}
 
-		log.writeLog(level.getValue(), messageBuilder.toString());
+		log.writeLog(level.getValue(), infos);
 	}
 
 	protected void doLogf(Level level, String loggerClassName, String format, Object[] parameters, Throwable thrown) {
@@ -72,30 +72,30 @@ public abstract class Logger implements Serializable, BasicLogger {
 		return isEnabled(Level.TRACE);
 	}
 
-	public void trace(Object message) {
-		doLog(Level.TRACE, null, message, null, null);
+	public void trace(Object msg) {
+		doLog(Level.TRACE, null, msg, null, null);
 	}
 
-	public void trace(Object message, Throwable t) {
-		doLog(Level.TRACE, null, message, null, t);
+	public void trace(Object msg, Throwable throwable) {
+		doLog(Level.TRACE, null, msg, null, throwable);
 	}
 
-	public void trace(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.TRACE, loggerFqcn, message, null, t);
-	}
-
-	@Deprecated
-	public void trace(Object message, Object[] params) {
-		doLog(Level.TRACE, null, message, params, null);
+	public void trace(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.TRACE, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void trace(Object message, Object[] params, Throwable t) {
-		doLog(Level.TRACE, null, message, params, t);
+	public void trace(Object msg, Object[] params) {
+		doLog(Level.TRACE, null, msg, params, null);
 	}
 
-	public void trace(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.TRACE, loggerFqcn, message, params, t);
+	@Deprecated
+	public void trace(Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.TRACE, null, msg, params, throwable);
+	}
+
+	public void trace(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.TRACE, loggerFqcn, msg, params, throwable);
 	}
 
 	public void tracev(String format, Object... params) {
@@ -120,25 +120,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracev(Throwable t, String format, Object... params) {
-		doLog(Level.TRACE, null, format, params, t);
+	public void tracev(Throwable throwable, String format, Object... params) {
+		doLog(Level.TRACE, null, format, params, throwable);
 	}
 
-	public void tracev(Throwable t, String format, Object param1) {
+	public void tracev(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.TRACE)) {
-			doLog(Level.TRACE, null, format, new Object[] { param1 }, t);
+			doLog(Level.TRACE, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void tracev(Throwable t, String format, Object param1, Object param2) {
+	public void tracev(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.TRACE)) {
-			doLog(Level.TRACE, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.TRACE, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void tracev(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void tracev(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.TRACE)) {
-			doLog(Level.TRACE, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.TRACE, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -164,25 +164,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracef(Throwable t, String format, Object... params) {
-		doLogf(Level.TRACE, null, format, params, t);
+	public void tracef(Throwable throwable, String format, Object... params) {
+		doLogf(Level.TRACE, null, format, params, throwable);
 	}
 
-	public void tracef(Throwable t, String format, Object param1) {
+	public void tracef(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { param1 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void tracef(Throwable t, String format, Object param1, Object param2) {
+	public void tracef(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void tracef(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void tracef(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -222,39 +222,39 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg) {
+	public void tracef(final Throwable throwable, final String format, final int arg) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg1, final Object arg2) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2, final int arg3) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2, final int arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final int arg1, final Object arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
@@ -294,39 +294,39 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg) {
+	public void tracef(final Throwable throwable, final String format, final long arg) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg1, final Object arg2) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2, final long arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable t, final String format, final long arg1, final Object arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
-			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
@@ -334,30 +334,30 @@ public abstract class Logger implements Serializable, BasicLogger {
 		return isEnabled(Level.DEBUG);
 	}
 
-	public void debug(Object message) {
-		doLog(Level.DEBUG, null, message, null, null);
+	public void debug(Object msg) {
+		doLog(Level.DEBUG, null, msg, null, null);
 	}
 
-	public void debug(Object message, Throwable t) {
-		doLog(Level.DEBUG, null, message, null, t);
+	public void debug(Object msg, Throwable throwable) {
+		doLog(Level.DEBUG, null, msg, null, throwable);
 	}
 
-	public void debug(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.DEBUG, loggerFqcn, message, null, t);
-	}
-
-	@Deprecated
-	public void debug(Object message, Object[] params) {
-		doLog(Level.DEBUG, null, message, params, null);
+	public void debug(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.DEBUG, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void debug(Object message, Object[] params, Throwable t) {
-		doLog(Level.DEBUG, null, message, params, t);
+	public void debug(Object msg, Object[] params) {
+		doLog(Level.DEBUG, null, msg, params, null);
 	}
 
-	public void debug(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.DEBUG, loggerFqcn, message, params, t);
+	@Deprecated
+	public void debug(Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.DEBUG, null, msg, params, throwable);
+	}
+
+	public void debug(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.DEBUG, loggerFqcn, msg, params, throwable);
 	}
 
 	public void debugv(String format, Object... params) {
@@ -382,25 +382,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugv(Throwable t, String format, Object... params) {
-		doLog(Level.DEBUG, null, format, params, t);
+	public void debugv(Throwable throwable, String format, Object... params) {
+		doLog(Level.DEBUG, null, format, params, throwable);
 	}
 
-	public void debugv(Throwable t, String format, Object param1) {
+	public void debugv(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.DEBUG)) {
-			doLog(Level.DEBUG, null, format, new Object[] { param1 }, t);
+			doLog(Level.DEBUG, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void debugv(Throwable t, String format, Object param1, Object param2) {
+	public void debugv(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLog(Level.DEBUG, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.DEBUG, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void debugv(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void debugv(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLog(Level.DEBUG, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.DEBUG, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -426,25 +426,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugf(Throwable t, String format, Object... params) {
-		doLogf(Level.DEBUG, null, format, params, t);
+	public void debugf(Throwable throwable, String format, Object... params) {
+		doLogf(Level.DEBUG, null, format, params, throwable);
 	}
 
-	public void debugf(Throwable t, String format, Object param1) {
+	public void debugf(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { param1 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void debugf(Throwable t, String format, Object param1, Object param2) {
+	public void debugf(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void debugf(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void debugf(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -484,39 +484,39 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg) {
+	public void debugf(final Throwable throwable, final String format, final int arg) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg1, final Object arg2) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2, final int arg3) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2, final int arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final int arg1, final Object arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
@@ -556,39 +556,39 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg) {
+	public void debugf(final Throwable throwable, final String format, final long arg) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg1, final Object arg2) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2, final long arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable t, final String format, final long arg1, final Object arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
-			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, t);
+			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
@@ -596,30 +596,30 @@ public abstract class Logger implements Serializable, BasicLogger {
 		return isEnabled(Level.INFO);
 	}
 
-	public void info(Object message) {
-		doLog(Level.INFO, null, message, null, null);
+	public void info(Object msg) {
+		doLog(Level.INFO, null, msg, null, null);
 	}
 
-	public void info(Object message, Throwable t) {
-		doLog(Level.INFO, null, message, null, t);
+	public void info(Object msg, Throwable throwable) {
+		doLog(Level.INFO, null, msg, null, throwable);
 	}
 
-	public void info(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.INFO, loggerFqcn, message, null, t);
-	}
-
-	@Deprecated
-	public void info(Object message, Object[] params) {
-		doLog(Level.INFO, null, message, params, null);
+	public void info(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.INFO, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void info(Object message, Object[] params, Throwable t) {
-		doLog(Level.INFO, null, message, params, t);
+	public void info(Object msg, Object[] params) {
+		doLog(Level.INFO, null, msg, params, null);
 	}
 
-	public void info(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.INFO, loggerFqcn, message, params, t);
+	@Deprecated
+	public void info(Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.INFO, null, msg, params, throwable);
+	}
+
+	public void info(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.INFO, loggerFqcn, msg, params, throwable);
 	}
 
 	public void infov(String format, Object... params) {
@@ -644,25 +644,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void infov(Throwable t, String format, Object... params) {
-		doLog(Level.INFO, null, format, params, t);
+	public void infov(Throwable throwable, String format, Object... params) {
+		doLog(Level.INFO, null, format, params, throwable);
 	}
 
-	public void infov(Throwable t, String format, Object param1) {
+	public void infov(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.INFO)) {
-			doLog(Level.INFO, null, format, new Object[] { param1 }, t);
+			doLog(Level.INFO, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void infov(Throwable t, String format, Object param1, Object param2) {
+	public void infov(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.INFO)) {
-			doLog(Level.INFO, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.INFO, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void infov(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void infov(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.INFO)) {
-			doLog(Level.INFO, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.INFO, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -688,52 +688,52 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void infof(Throwable t, String format, Object... params) {
-		doLogf(Level.INFO, null, format, params, t);
+	public void infof(Throwable throwable, String format, Object... params) {
+		doLogf(Level.INFO, null, format, params, throwable);
 	}
 
-	public void infof(Throwable t, String format, Object param1) {
+	public void infof(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.INFO)) {
-			doLogf(Level.INFO, null, format, new Object[] { param1 }, t);
+			doLogf(Level.INFO, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void infof(Throwable t, String format, Object param1, Object param2) {
+	public void infof(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.INFO)) {
-			doLogf(Level.INFO, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.INFO, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void infof(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void infof(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.INFO)) {
-			doLogf(Level.INFO, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.INFO, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void warn(Object message) {
-		doLog(Level.WARN, null, message, null, null);
+	public void warn(Object msg) {
+		doLog(Level.WARN, null, msg, null, null);
 	}
 
-	public void warn(Object message, Throwable t) {
-		doLog(Level.WARN, null, message, null, t);
+	public void warn(Object msg, Throwable throwable) {
+		doLog(Level.WARN, null, msg, null, throwable);
 	}
 
-	public void warn(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.WARN, loggerFqcn, message, null, t);
+	public void warn(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.WARN, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void warn(Object message, Object[] params) {
-		doLog(Level.WARN, null, message, params, null);
+	public void warn(Object msg, Object[] params) {
+		doLog(Level.WARN, null, msg, params, null);
 	}
 
 	@Deprecated
-	public void warn(Object message, Object[] params, Throwable t) {
-		doLog(Level.WARN, null, message, params, t);
+	public void warn(Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.WARN, null, msg, params, throwable);
 	}
 
-	public void warn(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.WARN, loggerFqcn, message, params, t);
+	public void warn(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.WARN, loggerFqcn, msg, params, throwable);
 	}
 
 	public void warnv(String format, Object... params) {
@@ -758,25 +758,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void warnv(Throwable t, String format, Object... params) {
-		doLog(Level.WARN, null, format, params, t);
+	public void warnv(Throwable throwable, String format, Object... params) {
+		doLog(Level.WARN, null, format, params, throwable);
 	}
 
-	public void warnv(Throwable t, String format, Object param1) {
+	public void warnv(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.WARN)) {
-			doLog(Level.WARN, null, format, new Object[] { param1 }, t);
+			doLog(Level.WARN, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void warnv(Throwable t, String format, Object param1, Object param2) {
+	public void warnv(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.WARN)) {
-			doLog(Level.WARN, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.WARN, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void warnv(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void warnv(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.WARN)) {
-			doLog(Level.WARN, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.WARN, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -802,52 +802,52 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void warnf(Throwable t, String format, Object... params) {
-		doLogf(Level.WARN, null, format, params, t);
+	public void warnf(Throwable throwable, String format, Object... params) {
+		doLogf(Level.WARN, null, format, params, throwable);
 	}
 
-	public void warnf(Throwable t, String format, Object param1) {
+	public void warnf(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.WARN)) {
-			doLogf(Level.WARN, null, format, new Object[] { param1 }, t);
+			doLogf(Level.WARN, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void warnf(Throwable t, String format, Object param1, Object param2) {
+	public void warnf(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.WARN)) {
-			doLogf(Level.WARN, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.WARN, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void warnf(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void warnf(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.WARN)) {
-			doLogf(Level.WARN, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.WARN, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void error(Object message) {
-		doLog(Level.ERROR, null, message, null, null);
+	public void error(Object msg) {
+		doLog(Level.ERROR, null, msg, null, null);
 	}
 
-	public void error(Object message, Throwable t) {
-		doLog(Level.ERROR, null, message, null, t);
+	public void error(Object msg, Throwable t) {
+		doLog(Level.ERROR, null, msg, null, t);
 	}
 
-	public void error(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.ERROR, loggerFqcn, message, null, t);
+	public void error(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.ERROR, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void error(Object message, Object[] params) {
-		doLog(Level.ERROR, null, message, params, null);
+	public void error(Object msg, Object[] params) {
+		doLog(Level.ERROR, null, msg, params, null);
 	}
 
 	@Deprecated
-	public void error(Object message, Object[] params, Throwable t) {
-		doLog(Level.ERROR, null, message, params, t);
+	public void error(Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.ERROR, null, msg, params, throwable);
 	}
 
-	public void error(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.ERROR, loggerFqcn, message, params, t);
+	public void error(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.ERROR, loggerFqcn, msg, params, throwable);
 	}
 
 	public void errorv(String format, Object... params) {
@@ -872,25 +872,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void errorv(Throwable t, String format, Object... params) {
-		doLog(Level.ERROR, null, format, params, t);
+	public void errorv(Throwable throwable, String format, Object... params) {
+		doLog(Level.ERROR, null, format, params, throwable);
 	}
 
-	public void errorv(Throwable t, String format, Object param1) {
+	public void errorv(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.ERROR)) {
-			doLog(Level.ERROR, null, format, new Object[] { param1 }, t);
+			doLog(Level.ERROR, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void errorv(Throwable t, String format, Object param1, Object param2) {
+	public void errorv(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.ERROR)) {
-			doLog(Level.ERROR, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.ERROR, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void errorv(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void errorv(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.ERROR)) {
-			doLog(Level.ERROR, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.ERROR, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -916,52 +916,52 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void errorf(Throwable t, String format, Object... params) {
-		doLogf(Level.ERROR, null, format, params, t);
+	public void errorf(Throwable throwable, String format, Object... params) {
+		doLogf(Level.ERROR, null, format, params, throwable);
 	}
 
-	public void errorf(Throwable t, String format, Object param1) {
+	public void errorf(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.ERROR)) {
-			doLogf(Level.ERROR, null, format, new Object[] { param1 }, t);
+			doLogf(Level.ERROR, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void errorf(Throwable t, String format, Object param1, Object param2) {
+	public void errorf(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.ERROR)) {
-			doLogf(Level.ERROR, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.ERROR, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void errorf(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void errorf(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.ERROR)) {
-			doLogf(Level.ERROR, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.ERROR, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void fatal(Object message) {
-		doLog(Level.FATAL, null, message, null, null);
+	public void fatal(Object msg) {
+		doLog(Level.FATAL, null, msg, null, null);
 	}
 
-	public void fatal(Object message, Throwable t) {
-		doLog(Level.FATAL, null, message, null, t);
+	public void fatal(Object msg, Throwable throwable) {
+		doLog(Level.FATAL, null, msg, null, throwable);
 	}
 
-	public void fatal(String loggerFqcn, Object message, Throwable t) {
-		doLog(Level.FATAL, loggerFqcn, message, null, t);
+	public void fatal(String loggerFqcn, Object msg, Throwable throwable) {
+		doLog(Level.FATAL, loggerFqcn, msg, null, throwable);
 	}
 
 	@Deprecated
-	public void fatal(Object message, Object[] params) {
-		doLog(Level.FATAL, null, message, params, null);
+	public void fatal(Object msg, Object[] params) {
+		doLog(Level.FATAL, null, msg, params, null);
 	}
 
 	@Deprecated
-	public void fatal(Object message, Object[] params, Throwable t) {
-		doLog(Level.FATAL, null, message, params, t);
+	public void fatal(Object msg, Object[] params, Throwable t) {
+		doLog(Level.FATAL, null, msg, params, t);
 	}
 
-	public void fatal(String loggerFqcn, Object message, Object[] params, Throwable t) {
-		doLog(Level.FATAL, loggerFqcn, message, params, t);
+	public void fatal(String loggerFqcn, Object msg, Object[] params, Throwable throwable) {
+		doLog(Level.FATAL, loggerFqcn, msg, params, throwable);
 	}
 
 	public void fatalv(String format, Object... params) {
@@ -986,25 +986,25 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void fatalv(Throwable t, String format, Object... params) {
-		doLog(Level.FATAL, null, format, params, t);
+	public void fatalv(Throwable throwable, String format, Object... params) {
+		doLog(Level.FATAL, null, format, params, throwable);
 	}
 
-	public void fatalv(Throwable t, String format, Object param1) {
+	public void fatalv(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.FATAL)) {
-			doLog(Level.FATAL, null, format, new Object[] { param1 }, t);
+			doLog(Level.FATAL, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void fatalv(Throwable t, String format, Object param1, Object param2) {
+	public void fatalv(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.FATAL)) {
-			doLog(Level.FATAL, null, format, new Object[] { param1, param2 }, t);
+			doLog(Level.FATAL, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void fatalv(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void fatalv(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.FATAL)) {
-			doLog(Level.FATAL, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(Level.FATAL, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -1030,52 +1030,52 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void fatalf(Throwable t, String format, Object... params) {
-		doLogf(Level.FATAL, null, format, params, t);
+	public void fatalf(Throwable throwable, String format, Object... params) {
+		doLogf(Level.FATAL, null, format, params, throwable);
 	}
 
-	public void fatalf(Throwable t, String format, Object param1) {
+	public void fatalf(Throwable throwable, String format, Object param1) {
 		if (isEnabled(Level.FATAL)) {
-			doLogf(Level.FATAL, null, format, new Object[] { param1 }, t);
+			doLogf(Level.FATAL, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void fatalf(Throwable t, String format, Object param1, Object param2) {
+	public void fatalf(Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(Level.FATAL)) {
-			doLogf(Level.FATAL, null, format, new Object[] { param1, param2 }, t);
+			doLogf(Level.FATAL, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void fatalf(Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void fatalf(Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(Level.FATAL)) {
-			doLogf(Level.FATAL, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(Level.FATAL, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void log(Level level, Object message) {
-		doLog(level, null, message, null, null);
+	public void log(Level level, Object msg) {
+		doLog(level, null, msg, null, null);
 	}
 
-	public void log(Level level, Object message, Throwable t) {
-		doLog(level, null, message, null, t);
+	public void log(Level level, Object msg, Throwable t) {
+		doLog(level, null, msg, null, t);
 	}
 
-	public void log(Level level, String loggerFqcn, Object message, Throwable t) {
-		doLog(level, loggerFqcn, message, null, t);
+	public void log(Level level, String loggerFqcn, Object msg, Throwable t) {
+		doLog(level, loggerFqcn, msg, null, t);
 	}
 
 	@Deprecated
-	public void log(Level level, Object message, Object[] params) {
-		doLog(level, null, message, params, null);
+	public void log(Level level, Object msg, Object[] params) {
+		doLog(level, null, msg, params, null);
 	}
 
 	@Deprecated
-	public void log(Level level, Object message, Object[] params, Throwable t) {
-		doLog(level, null, message, params, t);
+	public void log(Level level, Object msg, Object[] params, Throwable t) {
+		doLog(level, null, msg, params, t);
 	}
 
-	public void log(String loggerFqcn, Level level, Object message, Object[] params, Throwable t) {
-		doLog(level, loggerFqcn, message, params, t);
+	public void log(String loggerFqcn, Level level, Object msg, Object[] params, Throwable throwable) {
+		doLog(level, loggerFqcn, msg, params, throwable);
 	}
 
 	public void logv(Level level, String format, Object... params) {
@@ -1100,48 +1100,48 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void logv(Level level, Throwable t, String format, Object... params) {
-		doLog(level, null, format, params, t);
+	public void logv(Level level, Throwable throwable, String format, Object... params) {
+		doLog(level, null, format, params, throwable);
 	}
 
-	public void logv(Level level, Throwable t, String format, Object param1) {
+	public void logv(Level level, Throwable throwable, String format, Object param1) {
 		if (isEnabled(level)) {
-			doLog(level, null, format, new Object[] { param1 }, t);
+			doLog(level, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void logv(Level level, Throwable t, String format, Object param1, Object param2) {
+	public void logv(Level level, Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(level)) {
-			doLog(level, null, format, new Object[] { param1, param2 }, t);
+			doLog(level, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void logv(Level level, Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void logv(Level level, Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(level)) {
-			doLog(level, null, format, new Object[] { param1, param2, param3 }, t);
+			doLog(level, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void logv(String loggerFqcn, Level level, Throwable t, String format, Object... params) {
-		doLog(level, loggerFqcn, format, params, t);
+	public void logv(String loggerFqcn, Level level, Throwable throwable, String format, Object... params) {
+		doLog(level, loggerFqcn, format, params, throwable);
 	}
 
-	public void logv(String loggerFqcn, Level level, Throwable t, String format, Object param1) {
+	public void logv(String loggerFqcn, Level level, Throwable throwable, String format, Object param1) {
 		if (isEnabled(level)) {
-			doLog(level, loggerFqcn, format, new Object[] { param1 }, t);
+			doLog(level, loggerFqcn, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void logv(String loggerFqcn, Level level, Throwable t, String format, Object param1, Object param2) {
+	public void logv(String loggerFqcn, Level level, Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(level)) {
-			doLog(level, loggerFqcn, format, new Object[] { param1, param2 }, t);
+			doLog(level, loggerFqcn, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void logv(String loggerFqcn, Level level, Throwable t, String format, Object param1, Object param2,
+	public void logv(String loggerFqcn, Level level, Throwable throwable, String format, Object param1, Object param2,
 			Object param3) {
 		if (isEnabled(level)) {
-			doLog(level, loggerFqcn, format, new Object[] { param1, param2, param3 }, t);
+			doLog(level, loggerFqcn, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
@@ -1167,49 +1167,49 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void logf(Level level, Throwable t, String format, Object... params) {
-		doLogf(level, null, format, params, t);
+	public void logf(Level level, Throwable throwable, String format, Object... params) {
+		doLogf(level, null, format, params, throwable);
 	}
 
-	public void logf(Level level, Throwable t, String format, Object param1) {
+	public void logf(Level level, Throwable throwable, String format, Object param1) {
 		if (isEnabled(level)) {
-			doLogf(level, null, format, new Object[] { param1 }, t);
+			doLogf(level, null, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void logf(Level level, Throwable t, String format, Object param1, Object param2) {
+	public void logf(Level level, Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(level)) {
-			doLogf(level, null, format, new Object[] { param1, param2 }, t);
+			doLogf(level, null, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void logf(Level level, Throwable t, String format, Object param1, Object param2, Object param3) {
+	public void logf(Level level, Throwable throwable, String format, Object param1, Object param2, Object param3) {
 		if (isEnabled(level)) {
-			doLogf(level, null, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(level, null, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void logf(String loggerFqcn, Level level, Throwable t, String format, Object param1) {
+	public void logf(String loggerFqcn, Level level, Throwable throwable, String format, Object param1) {
 		if (isEnabled(level)) {
-			doLogf(level, loggerFqcn, format, new Object[] { param1 }, t);
+			doLogf(level, loggerFqcn, format, new Object[] { param1 }, throwable);
 		}
 	}
 
-	public void logf(String loggerFqcn, Level level, Throwable t, String format, Object param1, Object param2) {
+	public void logf(String loggerFqcn, Level level, Throwable throwable, String format, Object param1, Object param2) {
 		if (isEnabled(level)) {
-			doLogf(level, loggerFqcn, format, new Object[] { param1, param2 }, t);
+			doLogf(level, loggerFqcn, format, new Object[] { param1, param2 }, throwable);
 		}
 	}
 
-	public void logf(String loggerFqcn, Level level, Throwable t, String format, Object param1, Object param2,
+	public void logf(String loggerFqcn, Level level, Throwable throwable, String format, Object param1, Object param2,
 			Object param3) {
 		if (isEnabled(level)) {
-			doLogf(level, loggerFqcn, format, new Object[] { param1, param2, param3 }, t);
+			doLogf(level, loggerFqcn, format, new Object[] { param1, param2, param3 }, throwable);
 		}
 	}
 
-	public void logf(String loggerFqcn, Level level, Throwable t, String format, Object... params) {
-		doLogf(level, loggerFqcn, format, params, t);
+	public void logf(String loggerFqcn, Level level, Throwable throwable, String format, Object... params) {
+		doLogf(level, loggerFqcn, format, params, throwable);
 	}
 
 	protected final Object writeReplace() {

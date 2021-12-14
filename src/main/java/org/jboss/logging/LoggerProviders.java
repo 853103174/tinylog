@@ -36,7 +36,7 @@ public final class LoggerProviders {
 					return trySlf4j("system property");
 				}
 			}
-		} catch (Throwable t) {
+		} catch (Throwable throwable) {
 		}
 
 		try {

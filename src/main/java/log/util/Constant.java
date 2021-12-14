@@ -10,26 +10,29 @@ import java.util.Map;
  */
 public class Constant {
 
-	/** 调试信息 */
-	public static final int DEBUG = 0;
+	/** 追踪信息 */
+	public static final int TRACE = 1;
 
-	/** 普通信息 */
-	public static final int INFO = 1;
+	/** 调试信息 */
+	public static final int DEBUG = 2;
+
+	/** 通知信息 */
+	public static final int INFO = 3;
 
 	/** 警告信息 */
-	public static final int WARN = 2;
+	public static final int WARN = 4;
 
 	/** 错误信息 */
-	public static final int ERROR = 3;
+	public static final int ERROR = 5;
 
-	/** 严重错误信息 */
-	public static final int FATAL = 4;
+	/** 致命信息 */
+	public static final int FATAL = 6;
 
 	/** 当前运行环境的字符集 */
 	public static final String CHARSET_NAME = CommUtil.getConfigByString("charset_name", "UTF-8");
 
 	/** 日志级别 */
-	public static final String LOG_LEVEL = CommUtil.getConfigByString("log_level", "0,1,2,3,4");
+	public static final String LOG_LEVEL = CommUtil.getConfigByString("log_level", "1,2,3,4,5,6");
 
 	/** 是否输出到控制台 */
 	public static final boolean PRINT_CONSOLE = CommUtil.getConfigByBoolean("print_console", Boolean.FALSE);
@@ -43,11 +46,12 @@ public class Constant {
 	/** 日志类型描述map */
 	public static final Map<Integer, String> LEVEL_DESC = new HashMap<Integer, String>(8);
 	static{
-		LEVEL_DESC.put(0, "debug");
-		LEVEL_DESC.put(1, "info");
-		LEVEL_DESC.put(2, "warn");
-		LEVEL_DESC.put(3, "error");
-		LEVEL_DESC.put(4, "fatal");
+		LEVEL_DESC.put(1, "trace");
+		LEVEL_DESC.put(2, "debug");
+		LEVEL_DESC.put(3, "info");
+		LEVEL_DESC.put(4, "warn");
+		LEVEL_DESC.put(5, "error");
+		LEVEL_DESC.put(6, "fatal");
 	}
 
 }

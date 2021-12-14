@@ -2,21 +2,21 @@ package org.apache.commons.logging;
 
 public interface Log {
 
-	void debug(Object message);
+	void debug(Object msg);
 
-	void debug(Object message, Throwable t);
+	void debug(Object msg, Throwable throwable);
 
-	void info(Object message);
+	void info(Object msg);
 
-	void info(Object message, Throwable t);
+	void info(Object msg, Throwable throwable);
 
-	void warn(Object message);
+	void warn(Object msg);
 
-	void warn(Object message, Throwable t);
+	void warn(Object msg, Throwable throwable);
 
-	void error(Object message);
+	void error(Object msg);
 
-	void error(Object message, Throwable t);
+	void error(Object msg, Throwable throwable);
 
 	boolean isDebugEnabled();
 

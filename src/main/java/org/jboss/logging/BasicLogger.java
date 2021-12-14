@@ -6,13 +6,13 @@ public interface BasicLogger {
 
 	boolean isTraceEnabled();
 
-	void trace(Object message);
+	void trace(Object msg);
 
-	void trace(Object message, Throwable t);
+	void trace(Object msg, Throwable throwable);
 
-	void trace(String loggerFqcn, Object message, Throwable t);
+	void trace(String loggerFqcn, Object msg, Throwable throwable);
 
-	void trace(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void trace(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void tracev(String format, Object... params);
 
@@ -22,13 +22,13 @@ public interface BasicLogger {
 
 	void tracev(String format, Object param1, Object param2, Object param3);
 
-	void tracev(Throwable t, String format, Object... params);
+	void tracev(Throwable throwable, String format, Object... params);
 
-	void tracev(Throwable t, String format, Object param1);
+	void tracev(Throwable throwable, String format, Object param1);
 
-	void tracev(Throwable t, String format, Object param1, Object param2);
+	void tracev(Throwable throwable, String format, Object param1, Object param2);
 
-	void tracev(Throwable t, String format, Object param1, Object param2, Object param3);
+	void tracev(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void tracef(String format, Object... params);
 
@@ -38,13 +38,13 @@ public interface BasicLogger {
 
 	void tracef(String format, Object param1, Object param2, Object param3);
 
-	void tracef(Throwable t, String format, Object... params);
+	void tracef(Throwable throwable, String format, Object... params);
 
-	void tracef(Throwable t, String format, Object param1);
+	void tracef(Throwable throwable, String format, Object param1);
 
-	void tracef(Throwable t, String format, Object param1, Object param2);
+	void tracef(Throwable throwable, String format, Object param1, Object param2);
 
-	void tracef(Throwable t, String format, Object param1, Object param2, Object param3);
+	void tracef(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void tracef(String format, int arg);
 
@@ -58,17 +58,17 @@ public interface BasicLogger {
 
 	void tracef(String format, int arg1, Object arg2, Object arg3);
 
-	void tracef(Throwable t, String format, int arg);
+	void tracef(Throwable throwable, String format, int arg);
 
-	void tracef(Throwable t, String format, int arg1, int arg2);
+	void tracef(Throwable throwable, String format, int arg1, int arg2);
 
-	void tracef(Throwable t, String format, int arg1, Object arg2);
+	void tracef(Throwable throwable, String format, int arg1, Object arg2);
 
-	void tracef(Throwable t, String format, int arg1, int arg2, int arg3);
+	void tracef(Throwable throwable, String format, int arg1, int arg2, int arg3);
 
-	void tracef(Throwable t, String format, int arg1, int arg2, Object arg3);
+	void tracef(Throwable throwable, String format, int arg1, int arg2, Object arg3);
 
-	void tracef(Throwable t, String format, int arg1, Object arg2, Object arg3);
+	void tracef(Throwable throwable, String format, int arg1, Object arg2, Object arg3);
 
 	void tracef(String format, long arg);
 
@@ -82,27 +82,27 @@ public interface BasicLogger {
 
 	void tracef(String format, long arg1, Object arg2, Object arg3);
 
-	void tracef(Throwable t, String format, long arg);
+	void tracef(Throwable throwable, String format, long arg);
 
-	void tracef(Throwable t, String format, long arg1, long arg2);
+	void tracef(Throwable throwable, String format, long arg1, long arg2);
 
-	void tracef(Throwable t, String format, long arg1, Object arg2);
+	void tracef(Throwable throwable, String format, long arg1, Object arg2);
 
-	void tracef(Throwable t, String format, long arg1, long arg2, long arg3);
+	void tracef(Throwable throwable, String format, long arg1, long arg2, long arg3);
 
-	void tracef(Throwable t, String format, long arg1, long arg2, Object arg3);
+	void tracef(Throwable throwable, String format, long arg1, long arg2, Object arg3);
 
-	void tracef(Throwable t, String format, long arg1, Object arg2, Object arg3);
+	void tracef(Throwable throwable, String format, long arg1, Object arg2, Object arg3);
 
 	boolean isDebugEnabled();
 
-	void debug(Object message);
+	void debug(Object msg);
 
-	void debug(Object message, Throwable t);
+	void debug(Object msg, Throwable throwable);
 
-	void debug(String loggerFqcn, Object message, Throwable t);
+	void debug(String loggerFqcn, Object msg, Throwable throwable);
 
-	void debug(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void debug(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void debugv(String format, Object... params);
 
@@ -112,13 +112,13 @@ public interface BasicLogger {
 
 	void debugv(String format, Object param1, Object param2, Object param3);
 
-	void debugv(Throwable t, String format, Object... params);
+	void debugv(Throwable throwable, String format, Object... params);
 
-	void debugv(Throwable t, String format, Object param1);
+	void debugv(Throwable throwable, String format, Object param1);
 
-	void debugv(Throwable t, String format, Object param1, Object param2);
+	void debugv(Throwable throwable, String format, Object param1, Object param2);
 
-	void debugv(Throwable t, String format, Object param1, Object param2, Object param3);
+	void debugv(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void debugf(String format, Object... params);
 
@@ -128,13 +128,13 @@ public interface BasicLogger {
 
 	void debugf(String format, Object param1, Object param2, Object param3);
 
-	void debugf(Throwable t, String format, Object... params);
+	void debugf(Throwable throwable, String format, Object... params);
 
-	void debugf(Throwable t, String format, Object param1);
+	void debugf(Throwable throwable, String format, Object param1);
 
-	void debugf(Throwable t, String format, Object param1, Object param2);
+	void debugf(Throwable throwable, String format, Object param1, Object param2);
 
-	void debugf(Throwable t, String format, Object param1, Object param2, Object param3);
+	void debugf(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void debugf(String format, int arg);
 
@@ -148,17 +148,17 @@ public interface BasicLogger {
 
 	void debugf(String format, int arg1, Object arg2, Object arg3);
 
-	void debugf(Throwable t, String format, int arg);
+	void debugf(Throwable throwable, String format, int arg);
 
-	void debugf(Throwable t, String format, int arg1, int arg2);
+	void debugf(Throwable throwable, String format, int arg1, int arg2);
 
-	void debugf(Throwable t, String format, int arg1, Object arg2);
+	void debugf(Throwable throwable, String format, int arg1, Object arg2);
 
-	void debugf(Throwable t, String format, int arg1, int arg2, int arg3);
+	void debugf(Throwable throwable, String format, int arg1, int arg2, int arg3);
 
-	void debugf(Throwable t, String format, int arg1, int arg2, Object arg3);
+	void debugf(Throwable throwable, String format, int arg1, int arg2, Object arg3);
 
-	void debugf(Throwable t, String format, int arg1, Object arg2, Object arg3);
+	void debugf(Throwable throwable, String format, int arg1, Object arg2, Object arg3);
 
 	void debugf(String format, long arg);
 
@@ -172,27 +172,27 @@ public interface BasicLogger {
 
 	void debugf(String format, long arg1, Object arg2, Object arg3);
 
-	void debugf(Throwable t, String format, long arg);
+	void debugf(Throwable throwable, String format, long arg);
 
-	void debugf(Throwable t, String format, long arg1, long arg2);
+	void debugf(Throwable throwable, String format, long arg1, long arg2);
 
-	void debugf(Throwable t, String format, long arg1, Object arg2);
+	void debugf(Throwable throwable, String format, long arg1, Object arg2);
 
-	void debugf(Throwable t, String format, long arg1, long arg2, long arg3);
+	void debugf(Throwable throwable, String format, long arg1, long arg2, long arg3);
 
-	void debugf(Throwable t, String format, long arg1, long arg2, Object arg3);
+	void debugf(Throwable throwable, String format, long arg1, long arg2, Object arg3);
 
-	void debugf(Throwable t, String format, long arg1, Object arg2, Object arg3);
+	void debugf(Throwable throwable, String format, long arg1, Object arg2, Object arg3);
 
 	boolean isInfoEnabled();
 
-	void info(Object message);
+	void info(Object msg);
 
-	void info(Object message, Throwable t);
+	void info(Object msg, Throwable throwable);
 
-	void info(String loggerFqcn, Object message, Throwable t);
+	void info(String loggerFqcn, Object msg, Throwable throwable);
 
-	void info(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void info(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void infov(String format, Object... params);
 
@@ -202,13 +202,13 @@ public interface BasicLogger {
 
 	void infov(String format, Object param1, Object param2, Object param3);
 
-	void infov(Throwable t, String format, Object... params);
+	void infov(Throwable throwable, String format, Object... params);
 
-	void infov(Throwable t, String format, Object param1);
+	void infov(Throwable throwable, String format, Object param1);
 
-	void infov(Throwable t, String format, Object param1, Object param2);
+	void infov(Throwable throwable, String format, Object param1, Object param2);
 
-	void infov(Throwable t, String format, Object param1, Object param2, Object param3);
+	void infov(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void infof(String format, Object... params);
 
@@ -218,21 +218,21 @@ public interface BasicLogger {
 
 	void infof(String format, Object param1, Object param2, Object param3);
 
-	void infof(Throwable t, String format, Object... params);
+	void infof(Throwable throwable, String format, Object... params);
 
-	void infof(Throwable t, String format, Object param1);
+	void infof(Throwable throwable, String format, Object param1);
 
-	void infof(Throwable t, String format, Object param1, Object param2);
+	void infof(Throwable throwable, String format, Object param1, Object param2);
 
-	void infof(Throwable t, String format, Object param1, Object param2, Object param3);
+	void infof(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void warn(Object message);
+	void warn(Object msg);
 
-	void warn(Object message, Throwable t);
+	void warn(Object msg, Throwable throwable);
 
-	void warn(String loggerFqcn, Object message, Throwable t);
+	void warn(String loggerFqcn, Object msg, Throwable throwable);
 
-	void warn(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void warn(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void warnv(String format, Object... params);
 
@@ -242,13 +242,13 @@ public interface BasicLogger {
 
 	void warnv(String format, Object param1, Object param2, Object param3);
 
-	void warnv(Throwable t, String format, Object... params);
+	void warnv(Throwable throwable, String format, Object... params);
 
-	void warnv(Throwable t, String format, Object param1);
+	void warnv(Throwable throwable, String format, Object param1);
 
-	void warnv(Throwable t, String format, Object param1, Object param2);
+	void warnv(Throwable throwable, String format, Object param1, Object param2);
 
-	void warnv(Throwable t, String format, Object param1, Object param2, Object param3);
+	void warnv(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void warnf(String format, Object... params);
 
@@ -258,21 +258,21 @@ public interface BasicLogger {
 
 	void warnf(String format, Object param1, Object param2, Object param3);
 
-	void warnf(Throwable t, String format, Object... params);
+	void warnf(Throwable throwable, String format, Object... params);
 
-	void warnf(Throwable t, String format, Object param1);
+	void warnf(Throwable throwable, String format, Object param1);
 
-	void warnf(Throwable t, String format, Object param1, Object param2);
+	void warnf(Throwable throwable, String format, Object param1, Object param2);
 
-	void warnf(Throwable t, String format, Object param1, Object param2, Object param3);
+	void warnf(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void error(Object message);
+	void error(Object msg);
 
-	void error(Object message, Throwable t);
+	void error(Object msg, Throwable throwable);
 
-	void error(String loggerFqcn, Object message, Throwable t);
+	void error(String loggerFqcn, Object msg, Throwable throwable);
 
-	void error(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void error(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void errorv(String format, Object... params);
 
@@ -282,13 +282,13 @@ public interface BasicLogger {
 
 	void errorv(String format, Object param1, Object param2, Object param3);
 
-	void errorv(Throwable t, String format, Object... params);
+	void errorv(Throwable throwable, String format, Object... params);
 
-	void errorv(Throwable t, String format, Object param1);
+	void errorv(Throwable throwable, String format, Object param1);
 
-	void errorv(Throwable t, String format, Object param1, Object param2);
+	void errorv(Throwable throwable, String format, Object param1, Object param2);
 
-	void errorv(Throwable t, String format, Object param1, Object param2, Object param3);
+	void errorv(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void errorf(String format, Object... params);
 
@@ -298,21 +298,21 @@ public interface BasicLogger {
 
 	void errorf(String format, Object param1, Object param2, Object param3);
 
-	void errorf(Throwable t, String format, Object... params);
+	void errorf(Throwable throwable, String format, Object... params);
 
-	void errorf(Throwable t, String format, Object param1);
+	void errorf(Throwable throwable, String format, Object param1);
 
-	void errorf(Throwable t, String format, Object param1, Object param2);
+	void errorf(Throwable throwable, String format, Object param1, Object param2);
 
-	void errorf(Throwable t, String format, Object param1, Object param2, Object param3);
+	void errorf(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void fatal(Object message);
+	void fatal(Object msg);
 
-	void fatal(Object message, Throwable t);
+	void fatal(Object msg, Throwable throwable);
 
-	void fatal(String loggerFqcn, Object message, Throwable t);
+	void fatal(String loggerFqcn, Object msg, Throwable throwable);
 
-	void fatal(String loggerFqcn, Object message, Object[] params, Throwable t);
+	void fatal(String loggerFqcn, Object msg, Object[] params, Throwable throwable);
 
 	void fatalv(String format, Object... params);
 
@@ -322,13 +322,13 @@ public interface BasicLogger {
 
 	void fatalv(String format, Object param1, Object param2, Object param3);
 
-	void fatalv(Throwable t, String format, Object... params);
+	void fatalv(Throwable throwable, String format, Object... params);
 
-	void fatalv(Throwable t, String format, Object param1);
+	void fatalv(Throwable throwable, String format, Object param1);
 
-	void fatalv(Throwable t, String format, Object param1, Object param2);
+	void fatalv(Throwable throwable, String format, Object param1, Object param2);
 
-	void fatalv(Throwable t, String format, Object param1, Object param2, Object param3);
+	void fatalv(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
 	void fatalf(String format, Object... params);
 
@@ -338,21 +338,21 @@ public interface BasicLogger {
 
 	void fatalf(String format, Object param1, Object param2, Object param3);
 
-	void fatalf(Throwable t, String format, Object... params);
+	void fatalf(Throwable throwable, String format, Object... params);
 
-	void fatalf(Throwable t, String format, Object param1);
+	void fatalf(Throwable throwable, String format, Object param1);
 
-	void fatalf(Throwable t, String format, Object param1, Object param2);
+	void fatalf(Throwable throwable, String format, Object param1, Object param2);
 
-	void fatalf(Throwable t, String format, Object param1, Object param2, Object param3);
+	void fatalf(Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void log(Logger.Level level, Object message);
+	void log(Logger.Level level, Object msg);
 
-	void log(Logger.Level level, Object message, Throwable t);
+	void log(Logger.Level level, Object msg, Throwable throwable);
 
-	void log(Logger.Level level, String loggerFqcn, Object message, Throwable t);
+	void log(Logger.Level level, String loggerFqcn, Object msg, Throwable throwable);
 
-	void log(String loggerFqcn, Logger.Level level, Object message, Object[] params, Throwable t);
+	void log(String loggerFqcn, Logger.Level level, Object msg, Object[] params, Throwable throwable);
 
 	void logv(Logger.Level level, String format, Object... params);
 
@@ -362,21 +362,21 @@ public interface BasicLogger {
 
 	void logv(Logger.Level level, String format, Object param1, Object param2, Object param3);
 
-	void logv(Logger.Level level, Throwable t, String format, Object... params);
+	void logv(Logger.Level level, Throwable throwable, String format, Object... params);
 
-	void logv(Logger.Level level, Throwable t, String format, Object param1);
+	void logv(Logger.Level level, Throwable throwable, String format, Object param1);
 
-	void logv(Logger.Level level, Throwable t, String format, Object param1, Object param2);
+	void logv(Logger.Level level, Throwable throwable, String format, Object param1, Object param2);
 
-	void logv(Logger.Level level, Throwable t, String format, Object param1, Object param2, Object param3);
+	void logv(Logger.Level level, Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void logv(String loggerFqcn, Logger.Level level, Throwable t, String format, Object... params);
+	void logv(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object... params);
 
-	void logv(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1);
+	void logv(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1);
 
-	void logv(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1, Object param2);
+	void logv(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1, Object param2);
 
-	void logv(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1, Object param2,
+	void logv(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1, Object param2,
 			Object param3);
 
 	void logf(Logger.Level level, String format, Object... params);
@@ -387,21 +387,21 @@ public interface BasicLogger {
 
 	void logf(Logger.Level level, String format, Object param1, Object param2, Object param3);
 
-	void logf(Logger.Level level, Throwable t, String format, Object... params);
+	void logf(Logger.Level level, Throwable throwable, String format, Object... params);
 
-	void logf(Logger.Level level, Throwable t, String format, Object param1);
+	void logf(Logger.Level level, Throwable throwable, String format, Object param1);
 
-	void logf(Logger.Level level, Throwable t, String format, Object param1, Object param2);
+	void logf(Logger.Level level, Throwable throwable, String format, Object param1, Object param2);
 
-	void logf(Logger.Level level, Throwable t, String format, Object param1, Object param2, Object param3);
+	void logf(Logger.Level level, Throwable throwable, String format, Object param1, Object param2, Object param3);
 
-	void logf(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1);
+	void logf(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1);
 
-	void logf(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1, Object param2);
+	void logf(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1, Object param2);
 
-	void logf(String loggerFqcn, Logger.Level level, Throwable t, String format, Object param1, Object param2,
+	void logf(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object param1, Object param2,
 			Object param3);
 
-	void logf(String loggerFqcn, Logger.Level level, Throwable t, String format, Object... params);
+	void logf(String loggerFqcn, Logger.Level level, Throwable throwable, String format, Object... params);
 
 }

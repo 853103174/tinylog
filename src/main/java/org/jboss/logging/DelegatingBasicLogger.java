@@ -18,23 +18,23 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void trace(final Object message) {
-		log.trace(null, message, null);
+	public void trace(final Object msg) {
+		log.trace(null, msg, null);
 	}
 
 	@Override
-	public void trace(final Object message, final Throwable t) {
-		log.trace(null, message, t);
+	public void trace(final Object msg, final Throwable throwable) {
+		log.trace(null, msg, throwable);
 	}
 
 	@Override
-	public void trace(final String loggerFqcn, final Object message, final Throwable t) {
-		log.trace(loggerFqcn, message, t);
+	public void trace(final String loggerFqcn, final Object msg, final Throwable throwable) {
+		log.trace(loggerFqcn, msg, throwable);
 	}
 
 	@Override
-	public void trace(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.trace(loggerFqcn, message, params, t);
+	public void trace(final String loggerFqcn, final Object msg, final Object[] params, final Throwable throwable) {
+		log.trace(loggerFqcn, msg, params, throwable);
 	}
 
 	@Override
@@ -58,24 +58,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void tracev(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.TRACE, t, format, params);
+	public void tracev(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.TRACE, throwable, format, params);
 	}
 
 	@Override
-	public void tracev(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.TRACE, t, format, param1);
+	public void tracev(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.TRACE, throwable, format, param1);
 	}
 
 	@Override
-	public void tracev(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.TRACE, t, format, param1, param2);
+	public void tracev(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.TRACE, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void tracev(final Throwable t, final String format, final Object param1, final Object param2,
+	public void tracev(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.TRACE, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.TRACE, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -99,24 +99,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.TRACE, t, format, params);
+	public void tracef(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.TRACE, throwable, format, params);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.TRACE, t, format, param1);
+	public void tracef(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.TRACE, throwable, format, param1);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.TRACE, t, format, param1, param2);
+	public void tracef(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.TRACE, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final Object param1, final Object param2,
+	public void tracef(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.TRACE, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.TRACE, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -150,33 +150,33 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg) {
-		log.tracef(t, format, arg);
+	public void tracef(final Throwable throwable, final String format, final int arg) {
+		log.tracef(throwable, format, arg);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2) {
-		log.tracef(t, format, arg1, arg2);
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2) {
+		log.tracef(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg1, final Object arg2) {
-		log.tracef(t, format, arg1, arg2);
+	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2) {
+		log.tracef(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2, final int arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2, final int arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg1, final int arg2, final Object arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final int arg1, final Object arg2, final Object arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -210,33 +210,33 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg) {
-		log.tracef(t, format, arg);
+	public void tracef(final Throwable throwable, final String format, final long arg) {
+		log.tracef(throwable, format, arg);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2) {
-		log.tracef(t, format, arg1, arg2);
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2) {
+		log.tracef(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg1, final Object arg2) {
-		log.tracef(t, format, arg1, arg2);
+	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2) {
+		log.tracef(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2, final long arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg1, final long arg2, final Object arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void tracef(final Throwable t, final String format, final long arg1, final Object arg2, final Object arg3) {
-		log.tracef(t, format, arg1, arg2, arg3);
+	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
+		log.tracef(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -245,23 +245,23 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void debug(final Object message) {
-		log.debug(null, message, null);
+	public void debug(final Object msg) {
+		log.debug(null, msg, null);
 	}
 
 	@Override
-	public void debug(final Object message, final Throwable t) {
-		log.debug(null, message, t);
+	public void debug(final Object msg, final Throwable throwable) {
+		log.debug(null, msg, throwable);
 	}
 
 	@Override
-	public void debug(final String loggerFqcn, final Object message, final Throwable t) {
-		log.debug(loggerFqcn, message, t);
+	public void debug(final String loggerFqcn, final Object msg, final Throwable throwable) {
+		log.debug(loggerFqcn, msg, throwable);
 	}
 
 	@Override
-	public void debug(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.debug(loggerFqcn, message, params, t);
+	public void debug(final String loggerFqcn, final Object msg, final Object[] params, final Throwable throwable) {
+		log.debug(loggerFqcn, msg, params, throwable);
 	}
 
 	@Override
@@ -285,24 +285,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void debugv(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.DEBUG, t, format, params);
+	public void debugv(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.DEBUG, throwable, format, params);
 	}
 
 	@Override
-	public void debugv(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.DEBUG, t, format, param1);
+	public void debugv(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.DEBUG, throwable, format, param1);
 	}
 
 	@Override
-	public void debugv(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.DEBUG, t, format, param1, param2);
+	public void debugv(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.DEBUG, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void debugv(final Throwable t, final String format, final Object param1, final Object param2,
+	public void debugv(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.DEBUG, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.DEBUG, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -326,24 +326,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.DEBUG, t, format, params);
+	public void debugf(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.DEBUG, throwable, format, params);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.DEBUG, t, format, param1);
+	public void debugf(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.DEBUG, throwable, format, param1);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.DEBUG, t, format, param1, param2);
+	public void debugf(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.DEBUG, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final Object param1, final Object param2,
+	public void debugf(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.DEBUG, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.DEBUG, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -377,33 +377,33 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg) {
-		log.debugf(t, format, arg);
+	public void debugf(final Throwable throwable, final String format, final int arg) {
+		log.debugf(throwable, format, arg);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2) {
-		log.debugf(t, format, arg1, arg2);
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2) {
+		log.debugf(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg1, final Object arg2) {
-		log.debugf(t, format, arg1, arg2);
+	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2) {
+		log.debugf(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2, final int arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2, final int arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg1, final int arg2, final Object arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final int arg1, final Object arg2, final Object arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -437,33 +437,33 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg) {
-		log.debugf(t, format, arg);
+	public void debugf(final Throwable throwable, final String format, final long arg) {
+		log.debugf(throwable, format, arg);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2) {
-		log.debugf(t, format, arg1, arg2);
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2) {
+		log.debugf(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg1, final Object arg2) {
-		log.debugf(t, format, arg1, arg2);
+	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2) {
+		log.debugf(throwable, format, arg1, arg2);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2, final long arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg1, final long arg2, final Object arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void debugf(final Throwable t, final String format, final long arg1, final Object arg2, final Object arg3) {
-		log.debugf(t, format, arg1, arg2, arg3);
+	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
+		log.debugf(throwable, format, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -472,23 +472,23 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void info(final Object message) {
-		log.info(null, message, null);
+	public void info(final Object msg) {
+		log.info(null, msg, null);
 	}
 
 	@Override
-	public void info(final Object message, final Throwable t) {
-		log.info(null, message, t);
+	public void info(final Object msg, final Throwable throwable) {
+		log.info(null, msg, throwable);
 	}
 
 	@Override
-	public void info(final String loggerFqcn, final Object message, final Throwable t) {
-		log.info(loggerFqcn, message, t);
+	public void info(final String loggerFqcn, final Object msg, final Throwable throwable) {
+		log.info(loggerFqcn, msg, throwable);
 	}
 
 	@Override
-	public void info(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.info(loggerFqcn, message, params, t);
+	public void info(final String loggerFqcn, final Object msg, final Object[] params, final Throwable throwable) {
+		log.info(loggerFqcn, msg, params, throwable);
 	}
 
 	@Override
@@ -512,24 +512,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void infov(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.INFO, t, format, params);
+	public void infov(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.INFO, throwable, format, params);
 	}
 
 	@Override
-	public void infov(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.INFO, t, format, param1);
+	public void infov(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.INFO, throwable, format, param1);
 	}
 
 	@Override
-	public void infov(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.INFO, t, format, param1, param2);
+	public void infov(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.INFO, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void infov(final Throwable t, final String format, final Object param1, final Object param2,
+	public void infov(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.INFO, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.INFO, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -553,44 +553,44 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void infof(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.INFO, t, format, params);
+	public void infof(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.INFO, throwable, format, params);
 	}
 
 	@Override
-	public void infof(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.INFO, t, format, param1);
+	public void infof(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.INFO, throwable, format, param1);
 	}
 
 	@Override
-	public void infof(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.INFO, t, format, param1, param2);
+	public void infof(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.INFO, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void infof(final Throwable t, final String format, final Object param1, final Object param2,
+	public void infof(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.INFO, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.INFO, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void warn(final Object message) {
-		log.warn(null, message, null);
+	public void warn(final Object msg) {
+		log.warn(null, msg, null);
 	}
 
 	@Override
-	public void warn(final Object message, final Throwable t) {
-		log.warn(null, message, t);
+	public void warn(final Object msg, final Throwable t) {
+		log.warn(null, msg, t);
 	}
 
 	@Override
-	public void warn(final String loggerFqcn, final Object message, final Throwable t) {
-		log.warn(loggerFqcn, message, t);
+	public void warn(final String loggerFqcn, final Object msg, final Throwable t) {
+		log.warn(loggerFqcn, msg, t);
 	}
 
 	@Override
-	public void warn(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.warn(loggerFqcn, message, params, t);
+	public void warn(final String loggerFqcn, final Object msg, final Object[] params, final Throwable t) {
+		log.warn(loggerFqcn, msg, params, t);
 	}
 
 	@Override
@@ -614,24 +614,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void warnv(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.WARN, t, format, params);
+	public void warnv(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.WARN, throwable, format, params);
 	}
 
 	@Override
-	public void warnv(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.WARN, t, format, param1);
+	public void warnv(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.WARN, throwable, format, param1);
 	}
 
 	@Override
-	public void warnv(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.WARN, t, format, param1, param2);
+	public void warnv(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.WARN, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void warnv(final Throwable t, final String format, final Object param1, final Object param2,
+	public void warnv(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.WARN, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.WARN, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -655,44 +655,44 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void warnf(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.WARN, t, format, params);
+	public void warnf(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.WARN, throwable, format, params);
 	}
 
 	@Override
-	public void warnf(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.WARN, t, format, param1);
+	public void warnf(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.WARN, throwable, format, param1);
 	}
 
 	@Override
-	public void warnf(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.WARN, t, format, param1, param2);
+	public void warnf(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.WARN, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void warnf(final Throwable t, final String format, final Object param1, final Object param2,
+	public void warnf(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.WARN, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.WARN, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void error(final Object message) {
-		log.error(null, message, null);
+	public void error(final Object msg) {
+		log.error(null, msg, null);
 	}
 
 	@Override
-	public void error(final Object message, final Throwable t) {
-		log.error(null, message, t);
+	public void error(final Object msg, final Throwable throwable) {
+		log.error(null, msg, throwable);
 	}
 
 	@Override
-	public void error(final String loggerFqcn, final Object message, final Throwable t) {
-		log.error(loggerFqcn, message, t);
+	public void error(final String loggerFqcn, final Object msg, final Throwable throwable) {
+		log.error(loggerFqcn, msg, throwable);
 	}
 
 	@Override
-	public void error(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.error(loggerFqcn, message, params, t);
+	public void error(final String loggerFqcn, final Object msg, final Object[] params, final Throwable throwable) {
+		log.error(loggerFqcn, msg, params, throwable);
 	}
 
 	@Override
@@ -716,24 +716,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void errorv(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.ERROR, t, format, params);
+	public void errorv(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.ERROR, throwable, format, params);
 	}
 
 	@Override
-	public void errorv(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.ERROR, t, format, param1);
+	public void errorv(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.ERROR, throwable, format, param1);
 	}
 
 	@Override
-	public void errorv(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.ERROR, t, format, param1, param2);
+	public void errorv(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.ERROR, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void errorv(final Throwable t, final String format, final Object param1, final Object param2,
+	public void errorv(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.ERROR, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.ERROR, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -757,44 +757,44 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void errorf(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.ERROR, t, format, params);
+	public void errorf(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.ERROR, throwable, format, params);
 	}
 
 	@Override
-	public void errorf(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.ERROR, t, format, param1);
+	public void errorf(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.ERROR, throwable, format, param1);
 	}
 
 	@Override
-	public void errorf(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.ERROR, t, format, param1, param2);
+	public void errorf(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.ERROR, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void errorf(final Throwable t, final String format, final Object param1, final Object param2,
+	public void errorf(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.ERROR, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.ERROR, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void fatal(final Object message) {
-		log.fatal(null, message, null);
+	public void fatal(final Object msg) {
+		log.fatal(null, msg, null);
 	}
 
 	@Override
-	public void fatal(final Object message, final Throwable t) {
-		log.fatal(null, message, t);
+	public void fatal(final Object msg, final Throwable t) {
+		log.fatal(null, msg, t);
 	}
 
 	@Override
-	public void fatal(final String loggerFqcn, final Object message, final Throwable t) {
-		log.fatal(loggerFqcn, message, t);
+	public void fatal(final String loggerFqcn, final Object msg, final Throwable t) {
+		log.fatal(loggerFqcn, msg, t);
 	}
 
 	@Override
-	public void fatal(final String loggerFqcn, final Object message, final Object[] params, final Throwable t) {
-		log.fatal(loggerFqcn, message, params, t);
+	public void fatal(final String loggerFqcn, final Object msg, final Object[] params, final Throwable t) {
+		log.fatal(loggerFqcn, msg, params, t);
 	}
 
 	@Override
@@ -818,24 +818,24 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void fatalv(final Throwable t, final String format, final Object... params) {
-		log.logv(null, Logger.Level.FATAL, t, format, params);
+	public void fatalv(final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, Logger.Level.FATAL, throwable, format, params);
 	}
 
 	@Override
-	public void fatalv(final Throwable t, final String format, final Object param1) {
-		log.logv(null, Logger.Level.FATAL, t, format, param1);
+	public void fatalv(final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, Logger.Level.FATAL, throwable, format, param1);
 	}
 
 	@Override
-	public void fatalv(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logv(null, Logger.Level.FATAL, t, format, param1, param2);
+	public void fatalv(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logv(null, Logger.Level.FATAL, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void fatalv(final Throwable t, final String format, final Object param1, final Object param2,
+	public void fatalv(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logv(null, Logger.Level.FATAL, t, format, param1, param2, param3);
+		log.logv(null, Logger.Level.FATAL, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -859,45 +859,45 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void fatalf(final Throwable t, final String format, final Object... params) {
-		log.logf(null, Logger.Level.FATAL, t, format, params);
+	public void fatalf(final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, Logger.Level.FATAL, throwable, format, params);
 	}
 
 	@Override
-	public void fatalf(final Throwable t, final String format, final Object param1) {
-		log.logf(null, Logger.Level.FATAL, t, format, param1);
+	public void fatalf(final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, Logger.Level.FATAL, throwable, format, param1);
 	}
 
 	@Override
-	public void fatalf(final Throwable t, final String format, final Object param1, final Object param2) {
-		log.logf(null, Logger.Level.FATAL, t, format, param1, param2);
+	public void fatalf(final Throwable throwable, final String format, final Object param1, final Object param2) {
+		log.logf(null, Logger.Level.FATAL, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void fatalf(final Throwable t, final String format, final Object param1, final Object param2,
+	public void fatalf(final Throwable throwable, final String format, final Object param1, final Object param2,
 			final Object param3) {
-		log.logf(null, Logger.Level.FATAL, t, format, param1, param2, param3);
+		log.logf(null, Logger.Level.FATAL, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void log(final Logger.Level level, final Object message) {
-		log.log(null, level, message, null, null);
+	public void log(final Logger.Level level, final Object msg) {
+		log.log(null, level, msg, null, null);
 	}
 
 	@Override
-	public void log(final Logger.Level level, final Object message, final Throwable t) {
-		log.log(null, level, message, null, t);
+	public void log(final Logger.Level level, final Object msg, final Throwable throwable) {
+		log.log(null, level, msg, null, throwable);
 	}
 
 	@Override
-	public void log(final Logger.Level level, final String loggerFqcn, final Object message, final Throwable t) {
-		log.log(level, loggerFqcn, message, t);
+	public void log(final Logger.Level level, final String loggerFqcn, final Object msg, final Throwable throwable) {
+		log.log(level, loggerFqcn, msg, throwable);
 	}
 
 	@Override
-	public void log(final String loggerFqcn, final Logger.Level level, final Object message, final Object[] params,
-			final Throwable t) {
-		log.log(loggerFqcn, level, message, params, t);
+	public void log(final String loggerFqcn, final Logger.Level level, final Object msg, final Object[] params,
+			final Throwable throwable) {
+		log.log(loggerFqcn, level, msg, params, throwable);
 	}
 
 	@Override
@@ -922,49 +922,49 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void logv(final Logger.Level level, final Throwable t, final String format, final Object... params) {
-		log.logv(null, level, t, format, params);
+	public void logv(final Logger.Level level, final Throwable throwable, final String format, final Object... params) {
+		log.logv(null, level, throwable, format, params);
 	}
 
 	@Override
-	public void logv(final Logger.Level level, final Throwable t, final String format, final Object param1) {
-		log.logv(null, level, t, format, param1);
+	public void logv(final Logger.Level level, final Throwable throwable, final String format, final Object param1) {
+		log.logv(null, level, throwable, format, param1);
 	}
 
 	@Override
-	public void logv(final Logger.Level level, final Throwable t, final String format, final Object param1,
+	public void logv(final Logger.Level level, final Throwable throwable, final String format, final Object param1,
 			final Object param2) {
-		log.logv(null, level, t, format, param1, param2);
+		log.logv(null, level, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void logv(final Logger.Level level, final Throwable t, final String format, final Object param1,
+	public void logv(final Logger.Level level, final Throwable throwable, final String format, final Object param1,
 			final Object param2, final Object param3) {
-		log.logv(null, level, t, format, param1, param2, param3);
+		log.logv(null, level, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object... params) {
-		log.logv(loggerFqcn, level, t, format, params);
+		log.logv(loggerFqcn, level, throwable, format, params);
 	}
 
 	@Override
-	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1) {
-		log.logv(loggerFqcn, level, t, format, param1);
+		log.logv(loggerFqcn, level, throwable, format, param1);
 	}
 
 	@Override
-	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1, final Object param2) {
-		log.logv(loggerFqcn, level, t, format, param1, param2);
+		log.logv(loggerFqcn, level, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logv(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1, final Object param2, final Object param3) {
-		log.logv(loggerFqcn, level, t, format, param1, param2, param3);
+		log.logv(loggerFqcn, level, throwable, format, param1, param2, param3);
 	}
 
 	@Override
@@ -989,49 +989,49 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	}
 
 	@Override
-	public void logf(final Logger.Level level, final Throwable t, final String format, final Object... params) {
-		log.logf(null, level, t, format, params);
+	public void logf(final Logger.Level level, final Throwable throwable, final String format, final Object... params) {
+		log.logf(null, level, throwable, format, params);
 	}
 
 	@Override
-	public void logf(final Logger.Level level, final Throwable t, final String format, final Object param1) {
-		log.logf(null, level, t, format, param1);
+	public void logf(final Logger.Level level, final Throwable throwable, final String format, final Object param1) {
+		log.logf(null, level, throwable, format, param1);
 	}
 
 	@Override
-	public void logf(final Logger.Level level, final Throwable t, final String format, final Object param1,
+	public void logf(final Logger.Level level, final Throwable throwable, final String format, final Object param1,
 			final Object param2) {
-		log.logf(null, level, t, format, param1, param2);
+		log.logf(null, level, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void logf(final Logger.Level level, final Throwable t, final String format, final Object param1,
+	public void logf(final Logger.Level level, final Throwable throwable, final String format, final Object param1,
 			final Object param2, final Object param3) {
-		log.logf(null, level, t, format, param1, param2, param3);
+		log.logf(null, level, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1) {
-		log.logf(loggerFqcn, level, t, format, param1);
+		log.logf(loggerFqcn, level, throwable, format, param1);
 	}
 
 	@Override
-	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1, final Object param2) {
-		log.logf(loggerFqcn, level, t, format, param1, param2);
+		log.logf(loggerFqcn, level, throwable, format, param1, param2);
 	}
 
 	@Override
-	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object param1, final Object param2, final Object param3) {
-		log.logf(loggerFqcn, level, t, format, param1, param2, param3);
+		log.logf(loggerFqcn, level, throwable, format, param1, param2, param3);
 	}
 
 	@Override
-	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable t, final String format,
+	public void logf(final String loggerFqcn, final Logger.Level level, final Throwable throwable, final String format,
 			final Object... params) {
-		log.logf(loggerFqcn, level, t, format, params);
+		log.logf(loggerFqcn, level, throwable, format, params);
 	}
 
 	@Override

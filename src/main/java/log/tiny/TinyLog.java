@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.CompletableFuture;
 
+import log.util.CommUtil;
 import log.util.Constant;
 
 /**
@@ -36,106 +37,249 @@ public class TinyLog {
 		return LogHolder.instance;
 	}
 
-	public void setPrintConsole(boolean printConsole) {
-		this.printConsole = printConsole;
+	/**
+	 * 是否开启追踪日志
+	 * 
+	 * @return
+	 */
+	public boolean isTraceEnabled() {
+		return Constant.LOG_LEVEL.indexOf("1") > -1;
 	}
 
 	/**
-	 * 写调试日志
+	 * 输出追踪日志
 	 * 
-	 * @param logMsg
+	 * @param msg
 	 *            日志内容
 	 */
-	public void debug(String logMsg) {
-		writeLog("debug", Constant.DEBUG, logMsg);
+	public void trace(CharSequence msg) {
+		writeLog("trace", Constant.TRACE, msg);
 	}
 
 	/**
-	 * 写普通日志
+	 * 输出追踪日志
 	 * 
-	 * @param logMsg
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void trace(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+		writeLog("trace", Constant.TRACE, infos);
+	}
+
+	/**
+	 * 是否开启调试日志
+	 * 
+	 * @return
+	 */
+	public boolean isDebugEnabled() {
+		return Constant.LOG_LEVEL.indexOf("2") > -1;
+	}
+
+	/**
+	 * 输出调试日志
+	 * 
+	 * @param msg
 	 *            日志内容
 	 */
-	public void info(String logMsg) {
-		writeLog("info", Constant.INFO, logMsg);
+	public void debug(CharSequence msg) {
+		writeLog("debug", Constant.DEBUG, msg);
 	}
 
 	/**
-	 * 写警告日志
+	 * 输出调试日志
 	 * 
-	 * @param logMsg
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void debug(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+		writeLog("debug", Constant.DEBUG, infos);
+	}
+
+	/**
+	 * 是否开启通知日志
+	 * 
+	 * @return
+	 */
+	public boolean isInfoEnabled() {
+		return Constant.LOG_LEVEL.indexOf("3") > -1;
+	}
+
+	/**
+	 * 输出通知日志
+	 * 
+	 * @param msg
 	 *            日志内容
 	 */
-	public void warn(String logMsg) {
-		writeLog("warn", Constant.WARN, logMsg);
+	public void info(CharSequence msg) {
+		writeLog("info", Constant.INFO, msg);
 	}
 
 	/**
-	 * 写错误日志
+	 * 输出通知日志
 	 * 
-	 * @param logMsg
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void info(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+		writeLog("info", Constant.INFO, infos);
+	}
+
+	/**
+	 * 是否开启警告日志
+	 * 
+	 * @return
+	 */
+	public boolean isWarnEnabled() {
+		return Constant.LOG_LEVEL.indexOf("4") > -1;
+	}
+
+	/**
+	 * 输出警告日志
+	 * 
+	 * @param msg
 	 *            日志内容
 	 */
-	public void error(String logMsg) {
-		writeLog("error", Constant.ERROR, logMsg);
+	public void warn(CharSequence msg) {
+		writeLog("warn", Constant.WARN, msg);
 	}
 
 	/**
-	 * 写严重错误日志
+	 * 输出警告日志
 	 * 
-	 * @param logMsg
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void warn(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+		writeLog("warn", Constant.WARN, infos);
+	}
+
+	/**
+	 * 是否开启错误日志
+	 * 
+	 * @return
+	 */
+	public boolean isErrorEnabled() {
+		return Constant.LOG_LEVEL.indexOf("5") > -1;
+	}
+
+	/**
+	 * 输出错误日志
+	 * 
+	 * @param msg
 	 *            日志内容
 	 */
-	public void fatal(String logMsg) {
-		writeLog("fatal", Constant.FATAL, logMsg);
+	public void error(CharSequence msg) {
+		writeLog("error", Constant.ERROR, msg);
 	}
 
 	/**
-	 * 写系统日志
+	 * 输出错误日志
+	 * 
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void error(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+		writeLog("error", Constant.ERROR, infos);
+	}
+
+	/**
+	 * 输出致命日志
+	 * 
+	 * @param msg
+	 *            日志内容
+	 */
+	public void fatal(CharSequence msg) {
+		writeLog("fatal", Constant.FATAL, msg);
+	}
+
+	/**
+	 * 输出系统日志
 	 * 
 	 * @param level
 	 *            日志级别
-	 * @param logMsg
+	 * @param msg
 	 *            日志内容
 	 */
-	public void writeLog(int level, String logMsg) {
-		writeLog(Constant.LEVEL_DESC.get(level), level, logMsg);
+	public void writeLog(int level, CharSequence msg) {
+		writeLog(Constant.LEVEL_DESC.get(level), level, msg);
 	}
 
 	/**
-	 * 写日志
+	 * 输出日志到指定文件夹内
 	 * 
 	 * @param folder
 	 *            日志文件的父文件夹
 	 * @param level
 	 *            日志级别
-	 * @param logMsg
+	 * @param msg
 	 *            日志内容
 	 */
-	public void writeLog(String folder, int level, String logMsg) {
+	public void writeLog(String folder, int level, CharSequence msg) {
 		if (Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
 			try {
 				String now = LocalDate.now().toString();
-				StringBuilder log = new StringBuilder(logMsg.length() + 100);
+				StringBuilder log = new StringBuilder(msg.length() + 100);
 				log.append("[").append(Constant.LEVEL_DESC.get(level)).append("] ").append(now).append(" ")
-						.append(LocalTime.now()).append(" ").append(logMsg).append(endStr);
+						.append(LocalTime.now()).append(" ").append(msg).append(endStr);
 
 				if (printConsole) {
 					// 仅将日志打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(
-								new String(log.toString().getBytes(Constant.CHARSET_NAME), Constant.CHARSET_NAME));
+						System.err.print(log.chars());
 					} else {
-						System.out.print(
-								new String(log.toString().getBytes(Constant.CHARSET_NAME), Constant.CHARSET_NAME));
+						System.out.print(log.chars());
 					}
 				} else {
 					// 错误信息强制打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(
-								new String(log.toString().getBytes(Constant.CHARSET_NAME), Constant.CHARSET_NAME));
+						System.err.print(log.chars());
 					}
-					// 异步方式写日志到文件
+					// 异步方式输出日志到文件
 					CompletableFuture.runAsync(() -> {
 						synchronized (endStr) {
 							if (!now.equals(today)) {
@@ -154,7 +298,7 @@ public class TinyLog {
 
 							// 输出日志到文件
 							try (FileWriter out = new FileWriter(fullName, true);
-									BufferedWriter bw = new BufferedWriter(out);) {
+								 BufferedWriter bw = new BufferedWriter(out);) {
 								bw.write(log.toString());
 								bw.newLine();
 								bw.flush();
@@ -166,9 +310,8 @@ public class TinyLog {
 							long logSize = file.length();
 							if (logSize >= Constant.LOG_FILE_SIZE) {
 								path = new StringBuilder(50);
-								path.append(Constant.LOG_PATH).append("/").append(folder)
-									.append("/").append(now).append("-")
-									.append(String.format("%03d", ++bakNum)).append(".txt");
+								path.append(Constant.LOG_PATH).append("/").append(folder).append("/").append(now)
+										.append("-").append(String.format("%03d", ++bakNum)).append(".txt");
 								file.renameTo(new File(path.toString()));
 							}
 						}

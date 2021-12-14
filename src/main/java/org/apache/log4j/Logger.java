@@ -23,23 +23,23 @@ public class Logger {
 		return LoggerHolder.instance;
 	}
 
-	public void log(String callerFQCN, Priority p, Object message, Throwable t) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
+	public void log(String callerFQCN, Priority p, Object msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
 		}
-		if (t != null) {
-			messageBuilder.append(CommUtil.getExpStack(t));
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
 		}
-		log.writeLog(p.logFileName, p.level, messageBuilder.toString());
+		log.writeLog(p.logFileName, p.level, infos);
 	}
 
 	public boolean isDebugEnabled() {
-		return Constant.LOG_LEVEL.indexOf("0") > -1;
+		return log.isDebugEnabled();
 	}
 
 	public boolean isInfoEnabled() {
-		return Constant.LOG_LEVEL.indexOf("1") > -1;
+		return log.isInfoEnabled();
 	}
 
 	public boolean isEnabledFor(Priority p) {

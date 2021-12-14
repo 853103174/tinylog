@@ -1,7 +1,6 @@
 package org.slf4j;
 
 import log.tiny.TinyLog;
-import log.util.Constant;
 
 public class Slf4j implements Logger {
 	private static final TinyLog log = TinyLog.getInstance();
@@ -13,23 +12,23 @@ public class Slf4j implements Logger {
 		private static final Slf4j instance = new Slf4j();
 	}
 
-	private String format(String format, Object... args) {
+	private StringBuilder format(String format, Object... args) {
 		char[] chars = format.toCharArray();
 		int length = chars.length, a = -1;
-		StringBuilder message = new StringBuilder(format.length() << 2);
+		StringBuilder infos = new StringBuilder(format.length() << 2);
 		for (int i = 0; i < length; i++) {
 			if (chars[i] == '{') {
 				if (chars[i + 1] == '}') {
-					message.append(args[++a]);
+					infos.append(args[++a]);
 					++i;
 					continue;
 				}
 			}
 
-			message.append(chars[i]);
+			infos.append(chars[i]);
 		}
 
-		return message.toString();
+		return infos;
 	}
 
 	public static Slf4j getInstance() {
@@ -38,12 +37,12 @@ public class Slf4j implements Logger {
 
 	@Override
 	public boolean isDebugEnabled() {
-		return Constant.LOG_LEVEL.indexOf("0") > -1;
+		return log.isDebugEnabled();
 	}
 
 	@Override
-	public void debug(String message) {
-		log.debug(message);
+	public void debug(String msg) {
+		log.debug(msg);
 	}
 
 	@Override
@@ -63,12 +62,12 @@ public class Slf4j implements Logger {
 
 	@Override
 	public boolean isInfoEnabled() {
-		return Constant.LOG_LEVEL.indexOf("1") > -1;
+		return log.isInfoEnabled();
 	}
 
 	@Override
-	public void info(String message) {
-		log.info(message);
+	public void info(String msg) {
+		log.info(msg);
 	}
 
 	@Override
@@ -88,7 +87,7 @@ public class Slf4j implements Logger {
 
 	@Override
 	public boolean isWarnEnabled() {
-		return Constant.LOG_LEVEL.indexOf("2") > -1;
+		return log.isWarnEnabled();
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class Slf4j implements Logger {
 
 	@Override
 	public boolean isErrorEnabled() {
-		return Constant.LOG_LEVEL.indexOf("3") > -1;
+		return log.isErrorEnabled();
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public interface LoggerProvider {
 
 	String peekNdc();
 
-	void pushNdc(String message);
+	void pushNdc(String msg);
 
 	void setNdcMaxDepth(int maxDepth);
 

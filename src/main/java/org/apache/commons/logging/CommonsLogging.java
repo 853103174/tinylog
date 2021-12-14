@@ -1,8 +1,6 @@
 package org.apache.commons.logging;
 
 import log.tiny.TinyLog;
-import log.util.CommUtil;
-import log.util.Constant;
 
 public class CommonsLogging implements Log {
 	private static final TinyLog log = TinyLog.getInstance();
@@ -19,86 +17,58 @@ public class CommonsLogging implements Log {
 	}
 
 	@Override
-	public void debug(Object message) {
-		log.debug(message.toString());
+	public void debug(Object msg) {
+		log.debug(msg.toString());
 	}
 
 	@Override
-	public void debug(Object message, Throwable t) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
-		}
-		if (t != null) {
-			messageBuilder.append(CommUtil.getExpStack(t));
-		}
-		log.debug(messageBuilder.toString());
+	public void debug(Object msg, Throwable throwable) {
+		log.debug(msg.toString(), throwable);
 	}
 
 	@Override
-	public void info(Object message) {
-		log.info(message.toString());
+	public void info(Object msg) {
+		log.info(msg.toString());
 	}
 
 	@Override
-	public void info(Object message, Throwable t) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
-		}
-		if (t != null) {
-			messageBuilder.append(CommUtil.getExpStack(t));
-		}
-		log.info(messageBuilder.toString());
+	public void info(Object msg, Throwable throwable) {
+		log.info(msg.toString(), throwable);
 	}
 
 	@Override
-	public void warn(Object message) {
-		log.warn(message.toString());
+	public void warn(Object msg) {
+		log.warn(msg.toString());
 	}
 
 	@Override
-	public void warn(Object message, Throwable t) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
-		}
-		if (t != null) {
-			messageBuilder.append(CommUtil.getExpStack(t));
-		}
-		log.warn(messageBuilder.toString());
+	public void warn(Object msg, Throwable throwable) {
+		log.warn(msg.toString(), throwable);
 	}
 
 	@Override
-	public void error(Object message) {
-		log.error(message.toString());
+	public void error(Object msg) {
+		log.error(msg.toString());
 	}
 
 	@Override
-	public void error(Object message, Throwable t) {
-		StringBuilder messageBuilder = new StringBuilder();
-		if (message != null) {
-			messageBuilder.append(message).append(TinyLog.endStr);
-		}
-		if (t != null) {
-			messageBuilder.append(CommUtil.getExpStack(t));
-		}
-		log.error(messageBuilder.toString());
+	public void error(Object msg, Throwable throwable) {
+		log.error(msg.toString(), throwable);
 	}
 
 	@Override
 	public boolean isDebugEnabled() {
-		return Constant.LOG_LEVEL.indexOf("0") > -1;
+		return log.isDebugEnabled();
 	}
 
 	@Override
 	public boolean isInfoEnabled() {
-		return Constant.LOG_LEVEL.indexOf("1") > -1;
+		return log.isInfoEnabled();
 	}
 
 	@Override
 	public boolean isTraceEnabled() {
-		return Constant.LOG_LEVEL.indexOf("4") > -1;
+		return log.isTraceEnabled();
 	}
 
 }

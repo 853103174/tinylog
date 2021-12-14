@@ -4,7 +4,7 @@ public interface Logger {
 
 	public boolean isDebugEnabled();
 
-	public void debug(String message);
+	public void debug(String msg);
 
 	public void debug(String format, Object arg);
 
@@ -14,7 +14,7 @@ public interface Logger {
 
 	public boolean isInfoEnabled();
 
-	public void info(String message);
+	public void info(String msg);
 
 	public void info(String format, Object arg);
 

@@ -21,7 +21,7 @@ public class CommUtil {
 	private static HashMap<String, Object[]> propsMap = new HashMap<String, Object[]>();
 
 	/**
-	 * 从配置文件中取得 String 值，若无则返回默认值
+	 * 从配置文件中取得 String值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -39,7 +39,7 @@ public class CommUtil {
 	}
 
 	/**
-	 * 从配置文件中取得 int 值，若无（或解析异常）则返回默认值
+	 * 从配置文件中取得 int值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -57,7 +57,7 @@ public class CommUtil {
 	}
 
 	/**
-	 * 从配置文件中取得 long 值，若无（或解析异常）则返回默认值
+	 * 从配置文件中取得 long值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -75,7 +75,7 @@ public class CommUtil {
 	}
 
 	/**
-	 * 从配置文件中取得 boolean 值，若无则返回默认值
+	 * 从配置文件中取得 boolean值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -163,13 +163,13 @@ public class CommUtil {
 	 *            异常
 	 * @return 异常的字符串描述
 	 */
-	public static String getExpStack(Throwable throwable) {
+	public static byte[] getExpStack(Throwable throwable) {
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		PrintWriter writer = new PrintWriter(bo);
 		throwable.printStackTrace(writer);
 		writer.flush();
 		writer.close();
-		return bo.toString();
+		return bo.toByteArray();
 	}
 
 }
