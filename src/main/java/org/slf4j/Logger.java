@@ -2,6 +2,20 @@ package org.slf4j;
 
 public interface Logger {
 
+	public String getName();
+
+	public boolean isTraceEnabled();
+
+	public void trace(String msg);
+
+	public void trace(String format, Object arg);
+
+	public void trace(String format, Object arg1, Object arg2);
+
+	public void trace(String format, Object... arguments);
+
+	public void trace(String format, Throwable throwable);
+
 	public boolean isDebugEnabled();
 
 	public void debug(String msg);

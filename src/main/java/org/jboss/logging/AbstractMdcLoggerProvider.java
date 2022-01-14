@@ -30,6 +30,7 @@ public abstract class AbstractMdcLoggerProvider extends AbstractLoggerProvider {
 			map = new HashMap<String, Object>();
 			mdcMap.set(map);
 		}
+		
 		return map.put(key, value);
 	}
 
@@ -39,4 +40,5 @@ public abstract class AbstractMdcLoggerProvider extends AbstractLoggerProvider {
 			return;
 		map.remove(key);
 	}
+	
 }

@@ -1038,4 +1038,5 @@ public class DelegatingBasicLogger implements BasicLogger, Serializable {
 	public boolean isEnabled(final Logger.Level level) {
 		return log.isEnabled(level);
 	}
+	
 }

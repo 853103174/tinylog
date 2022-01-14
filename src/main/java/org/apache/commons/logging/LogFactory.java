@@ -9,4 +9,8 @@ public abstract class LogFactory {
 		return CommonsLogging.getInstance();
 	}
 
+	public static Log getLog(String name) {
+		return CommonsLogging.getInstance();
+	}
+
 }

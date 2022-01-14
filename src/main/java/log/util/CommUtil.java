@@ -39,24 +39,6 @@ public class CommUtil {
 	}
 
 	/**
-	 * 从配置文件中取得 int值, 若无则返回默认值
-	 * 
-	 * @param keyName
-	 *            属性名
-	 * @param defaultValue
-	 *            默认值
-	 * @return 属性值
-	 */
-	public static int getConfigByInt(String keyName, int defaultValue) {
-		String value = getConfig(keyName);
-		if (value != null && value.length() > 0) {
-			return Integer.parseInt(value.trim());
-		} else {
-			return defaultValue;
-		}
-	}
-
-	/**
 	 * 从配置文件中取得 long值, 若无则返回默认值
 	 * 
 	 * @param keyName
@@ -134,26 +116,8 @@ public class CommUtil {
 				return "";
 			}
 		}
+		
 		return props.getProperty(keyName, "");
-	}
-
-	/**
-	 * 将字符串转为字节数组
-	 * 
-	 * @param str
-	 *            源字符串
-	 * @return 字节数组
-	 */
-	public static byte[] string2bytes(String str) {
-		try {
-			if (str == null || str.length() <= 0) {
-				return new byte[0];
-			} else {
-				return str.getBytes(Constant.CHARSET_NAME);
-			}
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	/**
@@ -169,6 +133,7 @@ public class CommUtil {
 		throwable.printStackTrace(writer);
 		writer.flush();
 		writer.close();
+		
 		return bo.toByteArray();
 	}
 

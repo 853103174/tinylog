@@ -7,9 +7,13 @@ import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
 public final class LoggerProviders {
+	
 	static final String LOGGING_PROVIDER_KEY = "org.jboss.logging.provider";
 
 	static final LoggerProvider PROVIDER = find();
+
+	private LoggerProviders() {
+	}
 
 	private static LoggerProvider find() {
 		return findProvider();
@@ -48,6 +52,7 @@ public final class LoggerProviders {
 						break;
 					LoggerProvider provider = iter.next();
 					logProvider(provider, "service loader");
+					
 					return provider;
 				} catch (ServiceConfigurationError ignore) {
 				}
@@ -67,41 +72,45 @@ public final class LoggerProviders {
 		} catch (Throwable t) {
 		}
 		try {
-			Class.forName("ch.qos.logback.classic.Logger", false, cl);
 			return trySlf4j(null);
 		} catch (Throwable t) {
 		}
+		
 		return tryJDK(null);
 	}
 
 	private static JDKLoggerProvider tryJDK(final String via) {
 		final JDKLoggerProvider provider = new JDKLoggerProvider();
 		logProvider(provider, via);
+		
 		return provider;
 	}
 
 	private static LoggerProvider trySlf4j(final String via) {
 		final LoggerProvider provider = new JDKLoggerProvider();
 		logProvider(provider, via);
+		
 		return provider;
 	}
 
-	private static LoggerProvider tryLog4j2(final ClassLoader cl, final String via) throws ClassNotFoundException {
+	private static LoggerProvider tryLog4j2(final ClassLoader cl, final String via) {
 		LoggerProvider provider = new JDKLoggerProvider();
 		logProvider(provider, via);
+		
 		return provider;
 	}
 
-	private static LoggerProvider tryLog4j(final ClassLoader cl, final String via) throws ClassNotFoundException {
+	private static LoggerProvider tryLog4j(final ClassLoader cl, final String via) {
 		final LoggerProvider provider = new JDKLoggerProvider();
 		logProvider(provider, via);
+		
 		return provider;
 	}
 
-	private static LoggerProvider tryJBossLogManager(final ClassLoader cl, final String via)
-			throws ClassNotFoundException {
+	private static LoggerProvider tryJBossLogManager(final ClassLoader cl, final String via) {
 		final LoggerProvider provider = new JDKLoggerProvider();
 		logProvider(provider, via);
+		
 		return provider;
 	}
 
@@ -114,6 +123,4 @@ public final class LoggerProviders {
 		}
 	}
 
-	private LoggerProviders() {
-	}
 }

@@ -48,13 +48,13 @@ public abstract class Logger implements Serializable, BasicLogger {
 	protected void doLog(Level level, String loggerClassName, Object msg, Object[] parameters, Throwable throwable) {
 		StringBuilder infos = new StringBuilder();
 		if (msg != null) {
-			infos.append(msg).append(TinyLog.endStr);
+			infos.append(msg);
 		}
 		if (parameters != null) {
-			infos.append(parameters.toString()).append(TinyLog.endStr);
+			infos.append(TinyLog.endStr).append(parameters.toString());
 		}
 		if (throwable != null) {
-			infos.append(CommUtil.getExpStack(throwable));
+			infos.append(TinyLog.endStr).append(CommUtil.getExpStack(throwable));
 		}
 
 		log.writeLog(level.getValue(), infos);
@@ -246,13 +246,15 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final int arg2,
+			final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
 			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final int arg1, final Object arg2,
+			final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
 			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
@@ -312,19 +314,22 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2,
+			final long arg3) {
 		if (isEnabled(Level.TRACE)) {
 			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final long arg2,
+			final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
 			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
+	public void tracef(final Throwable throwable, final String format, final long arg1, final Object arg2,
+			final Object arg3) {
 		if (isEnabled(Level.TRACE)) {
 			doLogf(Level.TRACE, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
@@ -508,13 +513,15 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final int arg2,
+			final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
 			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final int arg1, final Object arg2,
+			final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
 			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
@@ -574,19 +581,22 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final long arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2,
+			final long arg3) {
 		if (isEnabled(Level.DEBUG)) {
 			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final long arg2,
+			final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
 			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
 	}
 
-	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2, final Object arg3) {
+	public void debugf(final Throwable throwable, final String format, final long arg1, final Object arg2,
+			final Object arg3) {
 		if (isEnabled(Level.DEBUG)) {
 			doLogf(Level.DEBUG, null, format, new Object[] { arg1, arg2, arg3 }, throwable);
 		}
@@ -1312,6 +1322,8 @@ public abstract class Logger implements Serializable, BasicLogger {
 			build.append('_');
 			build.append(d);
 		}
+		
 		return build.toString();
 	}
+
 }

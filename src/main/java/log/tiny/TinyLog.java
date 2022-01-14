@@ -148,6 +148,7 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
+		
 		writeLog("info", Constant.INFO, infos);
 	}
 
@@ -186,6 +187,7 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
+		
 		writeLog("warn", Constant.WARN, infos);
 	}
 
@@ -224,6 +226,7 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
+		
 		writeLog("error", Constant.ERROR, infos);
 	}
 
@@ -259,25 +262,26 @@ public class TinyLog {
 	 * @param msg
 	 *            日志内容
 	 */
-	public void writeLog(String folder, int level, CharSequence msg) {
+	public void writeLog(String folder, int level, CharSequence chars) {
 		if (Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
 			try {
 				String now = LocalDate.now().toString();
-				StringBuilder log = new StringBuilder(msg.length() + 100);
+				StringBuilder log = new StringBuilder(chars.length() + 100);
 				log.append("[").append(Constant.LEVEL_DESC.get(level)).append("] ").append(now).append(" ")
-						.append(LocalTime.now()).append(" ").append(msg).append(endStr);
-
+						.append(LocalTime.now()).append(" ").append(chars).append(endStr);
+				String msg=log.toString();
+				
 				if (printConsole) {
 					// 仅将日志打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(log.chars());
+						System.err.print(msg);
 					} else {
-						System.out.print(log.chars());
+						System.out.print(msg);
 					}
 				} else {
 					// 错误信息强制打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(log.chars());
+						System.err.print(msg);
 					}
 					// 异步方式输出日志到文件
 					CompletableFuture.runAsync(() -> {
@@ -299,7 +303,7 @@ public class TinyLog {
 							// 输出日志到文件
 							try (FileWriter out = new FileWriter(fullName, true);
 								 BufferedWriter bw = new BufferedWriter(out);) {
-								bw.write(log.toString());
+								bw.write(msg);
 								bw.newLine();
 								bw.flush();
 							} catch (Exception e) {

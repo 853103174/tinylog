@@ -26,10 +26,10 @@ public class Logger {
 	public void log(String callerFQCN, Priority p, Object msg, Throwable throwable) {
 		StringBuilder infos = new StringBuilder();
 		if (msg != null) {
-			infos.append(msg).append(TinyLog.endStr);
+			infos.append(msg);
 		}
 		if (throwable != null) {
-			infos.append(CommUtil.getExpStack(throwable));
+			infos.append(TinyLog.endStr).append(CommUtil.getExpStack(throwable));
 		}
 		log.writeLog(p.logFileName, p.level, infos);
 	}
@@ -45,4 +45,5 @@ public class Logger {
 	public boolean isEnabledFor(Priority p) {
 		return Constant.LOG_LEVEL.indexOf(String.valueOf(p.level)) > -1;
 	}
+	
 }

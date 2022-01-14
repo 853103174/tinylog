@@ -5,4 +5,5 @@ public final class JDKLoggerProvider extends AbstractMdcLoggerProvider implement
 	public Logger getLogger(final String name) {
 		return new JDKLogger(name);
 	}
+	
 }
