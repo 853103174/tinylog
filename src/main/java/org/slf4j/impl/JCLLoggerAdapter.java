@@ -162,4 +162,9 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 		log.error(format(format, arguments));
 	}
 
+	@Override
+	public void error(String msg, Throwable throwable) {
+		log.error(msg, throwable);
+	}
+
 }
