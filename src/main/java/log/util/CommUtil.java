@@ -127,14 +127,14 @@ public class CommUtil {
 	 *            异常
 	 * @return 异常的字符串描述
 	 */
-	public static byte[] getExpStack(Throwable throwable) {
+	public static String getExpStack(Throwable throwable) {
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		PrintWriter writer = new PrintWriter(bo);
 		throwable.printStackTrace(writer);
 		writer.flush();
 		writer.close();
 		
-		return bo.toByteArray();
+		return bo.toString();
 	}
 
 }
