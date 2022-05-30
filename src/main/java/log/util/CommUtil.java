@@ -3,9 +3,19 @@ package log.util;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 
@@ -21,7 +31,7 @@ public class CommUtil {
 	private static HashMap<String, Object[]> propsMap = new HashMap<String, Object[]>();
 
 	/**
-	 * 从配置文件中取得 String值, 若无则返回默认值
+	 * 从配置文件中取得String值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -31,7 +41,7 @@ public class CommUtil {
 	 */
 	public static String getConfigByString(String keyName, String defaultValue) {
 		String value = getConfig(keyName);
-		if (value != null && value.length() > 0) {
+		if (value.length() > 0) {
 			return value.trim();
 		} else {
 			return defaultValue;
@@ -39,7 +49,7 @@ public class CommUtil {
 	}
 
 	/**
-	 * 从配置文件中取得 long值, 若无则返回默认值
+	 * 从配置文件中取得int值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -47,17 +57,17 @@ public class CommUtil {
 	 *            默认值
 	 * @return 属性值
 	 */
-	public static long getConfigByLong(String keyName, long defaultValue) {
+	public static int getConfigByInteger(String keyName, int defaultValue) {
 		String value = getConfig(keyName);
-		if (value != null && value.length() > 0) {
-			return Long.parseLong(value.trim());
+		if (value.length() > 0) {
+			return Integer.parseInt(value.trim());
 		} else {
 			return defaultValue;
 		}
 	}
 
 	/**
-	 * 从配置文件中取得 boolean值, 若无则返回默认值
+	 * 从配置文件中取得boolean值, 若无则返回默认值
 	 * 
 	 * @param keyName
 	 *            属性名
@@ -67,7 +77,7 @@ public class CommUtil {
 	 */
 	public static boolean getConfigByBoolean(String keyName, boolean defaultValue) {
 		String value = getConfig(keyName);
-		if (value != null && value.length() > 0) {
+		if (value.length() > 0) {
 			return Boolean.parseBoolean(value.trim());
 		} else {
 			return defaultValue;
@@ -84,20 +94,21 @@ public class CommUtil {
 	private static String getConfig(String keyName) {
 		Properties props = null;
 		boolean isNeedLoadCfg = false;
-
-		String filePath = CONFIG_FILE_NAME;
-		File cfgFile = new File(filePath);
-		if (!cfgFile.exists()) {
-			filePath = CommUtil.class.getClassLoader().getResource(CONFIG_FILE_NAME).getPath();
-			cfgFile = new File(filePath);
-			if (!cfgFile.exists()) {
-				return null;
-			}
-		}
-
+		String filePath = CommUtil.class.getClassLoader().getResource(CONFIG_FILE_NAME).getPath();
 		Object[] arrs = propsMap.get(filePath);
+		File cfgFile = new File(filePath);
 		if (arrs == null) {
-			isNeedLoadCfg = true;
+			if (cfgFile.exists()) {
+				isNeedLoadCfg = true;
+			} else {
+				try (InputStream input = CommUtil.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);) {
+					props = new Properties();
+					props.load(input);
+					propsMap.put(filePath, new Object[] { cfgFile.lastModified(), props });
+				} catch (IOException e) {
+					return "";
+				}
+			}
 		} else {
 			Long lastModify = (Long) arrs[0];
 			if (lastModify.longValue() != cfgFile.lastModified()) {
@@ -116,7 +127,7 @@ public class CommUtil {
 				return "";
 			}
 		}
-		
+
 		return props.getProperty(keyName, "");
 	}
 
@@ -133,8 +144,63 @@ public class CommUtil {
 		throwable.printStackTrace(writer);
 		writer.flush();
 		writer.close();
-		
+
 		return bo.toString();
+	}
+
+	/**
+	 * 每天凌晨2点删除多余的文件
+	 */
+	public static void removeHistoryFile() {
+		if (Constant.MAX_HISTORY > 0) {
+			Timer timer = new Timer();
+			TimerTask task = new TimerTask() {
+				@Override
+				public void run() {
+					loop(new File(Constant.LOG_PATH));
+				}
+			};
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DATE, 1);
+			calendar.set(Calendar.HOUR_OF_DAY, 2);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			timer.scheduleAtFixedRate(task, new Date(calendar.getTimeInMillis()), 86400000);
+		}
+	}
+
+	/**
+	 * 循环删除文件
+	 * 
+	 * @param folder
+	 */
+	private static void loop(File folder) {
+		File file = null;
+		String path = null;
+		File[] files = folder.listFiles();
+		List<String> logs = new ArrayList<>();
+		// 缓存需要保留的日志日期
+		int size = Constant.MAX_HISTORY + 1;
+		LocalDate today = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		for (int i = 0; i < size; ++i) {
+			logs.add(today.minusDays(i).format(formatter));
+		}
+		// 删除多余的日志文件
+		for (int i = 0, lengths = files.length; i < lengths; ++i) {
+			file = files[i];
+			if (file.isDirectory()) {
+				loop(file);
+			} else {
+				path = file.getName();
+				for (int j = 0; j < size; ++j) {
+					if (path.startsWith(logs.get(j))) {
+						file.delete();
+						break;
+					}
+				}
+			}
+		}
 	}
 
 }

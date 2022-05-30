@@ -24,9 +24,12 @@ public class TinyLog {
 	// 换行符
 	public static final String endStr = "\r\n";
 	// 是否输出到控制台
-	private boolean printConsole = Constant.PRINT_CONSOLE;
+	private static final boolean printConsole = Constant.PRINT_CONSOLE;
 
 	private TinyLog() {
+		CompletableFuture.runAsync(() -> {
+			CommUtil.removeHistoryFile();
+		});
 	}
 
 	private static class LogHolder {
@@ -53,7 +56,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void trace(CharSequence msg) {
-		writeLog("trace", Constant.TRACE, msg);
+		writeLog("TRACE", Constant.TRACE, msg);
 	}
 
 	/**
@@ -72,7 +75,7 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
-		writeLog("trace", Constant.TRACE, infos);
+		writeLog("TRACE", Constant.TRACE, infos);
 	}
 
 	/**
@@ -91,7 +94,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void debug(CharSequence msg) {
-		writeLog("debug", Constant.DEBUG, msg);
+		writeLog("DEBUG", Constant.DEBUG, msg);
 	}
 
 	/**
@@ -110,7 +113,7 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
-		writeLog("debug", Constant.DEBUG, infos);
+		writeLog("DEBUG", Constant.DEBUG, infos);
 	}
 
 	/**
@@ -129,7 +132,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void info(CharSequence msg) {
-		writeLog("info", Constant.INFO, msg);
+		writeLog("INFO", Constant.INFO, msg);
 	}
 
 	/**
@@ -148,8 +151,8 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
-		
-		writeLog("info", Constant.INFO, infos);
+
+		writeLog("INFO", Constant.INFO, infos);
 	}
 
 	/**
@@ -168,7 +171,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void warn(CharSequence msg) {
-		writeLog("warn", Constant.WARN, msg);
+		writeLog("WARN", Constant.WARN, msg);
 	}
 
 	/**
@@ -187,8 +190,8 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
-		
-		writeLog("warn", Constant.WARN, infos);
+
+		writeLog("WARN", Constant.WARN, infos);
 	}
 
 	/**
@@ -207,7 +210,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void error(CharSequence msg) {
-		writeLog("error", Constant.ERROR, msg);
+		writeLog("ERROR", Constant.ERROR, msg);
 	}
 
 	/**
@@ -226,8 +229,8 @@ public class TinyLog {
 		if (throwable != null) {
 			infos.append(CommUtil.getExpStack(throwable));
 		}
-		
-		writeLog("error", Constant.ERROR, infos);
+
+		writeLog("ERROR", Constant.ERROR, infos);
 	}
 
 	/**
@@ -237,7 +240,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void fatal(CharSequence msg) {
-		writeLog("fatal", Constant.FATAL, msg);
+		writeLog("FATAL", Constant.FATAL, msg);
 	}
 
 	/**
@@ -269,8 +272,8 @@ public class TinyLog {
 				StringBuilder log = new StringBuilder(chars.length() + 100);
 				log.append("[").append(Constant.LEVEL_DESC.get(level)).append("] ").append(now).append(" ")
 						.append(LocalTime.now()).append(" ").append(chars).append(endStr);
-				String msg=log.toString();
-				
+				String msg = log.toString();
+
 				if (printConsole) {
 					// 仅将日志打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
@@ -302,7 +305,7 @@ public class TinyLog {
 
 							// 输出日志到文件
 							try (FileWriter out = new FileWriter(fullName, true);
-								 BufferedWriter bw = new BufferedWriter(out);) {
+									BufferedWriter bw = new BufferedWriter(out);) {
 								bw.write(msg);
 								bw.newLine();
 								bw.flush();

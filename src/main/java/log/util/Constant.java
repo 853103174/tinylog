@@ -41,17 +41,20 @@ public class Constant {
 	public static final String LOG_PATH = CommUtil.getConfigByString("log_path", "./log");
 
 	/** 单个日志文件的大小 */
-	public static final long LOG_FILE_SIZE = CommUtil.getConfigByLong("log_file_size", 104857600);
+	public static final int LOG_FILE_SIZE = CommUtil.getConfigByInteger("log_file_size", 104857600);
+
+	/** 日志文件保留天数 */
+	public static final int MAX_HISTORY = CommUtil.getConfigByInteger("max_history", 0);
 
 	/** 日志类型描述map */
 	public static final Map<Integer, String> LEVEL_DESC = new HashMap<Integer, String>(8);
 	static{
-		LEVEL_DESC.put(1, "trace");
-		LEVEL_DESC.put(2, "debug");
-		LEVEL_DESC.put(3, "info");
-		LEVEL_DESC.put(4, "warn");
-		LEVEL_DESC.put(5, "error");
-		LEVEL_DESC.put(6, "fatal");
+		LEVEL_DESC.put(1, "TRACE");
+		LEVEL_DESC.put(2, "DEBUG");
+		LEVEL_DESC.put(3, "INFO");
+		LEVEL_DESC.put(4, "WARN");
+		LEVEL_DESC.put(5, "ERROR");
+		LEVEL_DESC.put(6, "FATAL");
 	}
 
 }

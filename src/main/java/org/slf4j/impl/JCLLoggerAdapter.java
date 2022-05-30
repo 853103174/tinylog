@@ -15,12 +15,16 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 
 	private StringBuilder format(String format, Object... args) {
 		char[] chars = format.toCharArray();
-		int length = chars.length, a = -1;
+		int length = chars.length, a = -1, size = args.length - 1;
 		StringBuilder infos = new StringBuilder(format.length() << 2);
 		for (int i = 0; i < length; i++) {
 			if (chars[i] == '{') {
 				if (chars[i + 1] == '}') {
-					infos.append(args[++a]);
+					if (a < size) {
+						infos.append(args[++a]);
+					} else {
+						infos.append(args[a]);
+					}
 					++i;
 					continue;
 				}
@@ -88,6 +92,11 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 	}
 
 	@Override
+	public void debug(String msg, Throwable throwable) {
+		log.debug(msg, throwable);
+	}
+
+	@Override
 	public boolean isInfoEnabled() {
 		return log.isInfoEnabled();
 	}
@@ -113,6 +122,11 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 	}
 
 	@Override
+	public void info(String format, Throwable throwable) {
+		log.info(null, throwable);
+	}
+
+	@Override
 	public boolean isWarnEnabled() {
 		return log.isWarnEnabled();
 	}
@@ -135,6 +149,11 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 	@Override
 	public void warn(String format, Object... arguments) {
 		log.warn(format(format, arguments));
+	}
+
+	@Override
+	public void warn(String format, Throwable throwable) {
+		log.warn(null, throwable);
 	}
 
 	@Override

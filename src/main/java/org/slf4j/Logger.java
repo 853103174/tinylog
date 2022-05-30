@@ -25,6 +25,8 @@ public interface Logger {
 	public void debug(String format, Object arg1, Object arg2);
 
 	public void debug(String format, Object... arguments);
+	
+	public void debug(String msg, Throwable throwable);
 
 	public boolean isInfoEnabled();
 
@@ -36,6 +38,8 @@ public interface Logger {
 
 	public void info(String format, Object... arguments);
 
+	public void info(String format, Throwable throwable);
+
 	public boolean isWarnEnabled();
 
 	public void warn(String msg);
@@ -45,6 +49,8 @@ public interface Logger {
 	public void warn(String format, Object arg1, Object arg2);
 
 	public void warn(String format, Object... arguments);
+
+	public void warn(String format, Throwable throwable);
 
 	public boolean isErrorEnabled();
 
