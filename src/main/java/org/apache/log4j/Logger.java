@@ -43,7 +43,7 @@ public class Logger {
 	}
 
 	public boolean isEnabledFor(Priority p) {
-		return Constant.LOG_LEVEL.indexOf(String.valueOf(p.level)) > -1;
+		return Constant.LOG_LEVEL <= p.level;
 	}
 	
 }

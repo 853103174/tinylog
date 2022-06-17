@@ -149,6 +149,25 @@ public class CommUtil {
 	}
 
 	/**
+	 * 查找list中obj的索引
+	 * 
+	 * @param list
+	 *            要查找的列表
+	 * @param obj
+	 *            要查找的元素
+	 * @return
+	 */
+	public static int indexOf(List<? extends Object> list, Object obj) {
+		for (int i = 0, sizes = list.size(); i < sizes; i++) {
+			if (obj.equals(list.get(i))) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
 	 * 每天凌晨2点删除多余的文件
 	 */
 	public static void removeHistoryFile() {
@@ -194,7 +213,7 @@ public class CommUtil {
 			} else {
 				path = file.getName();
 				for (int j = 0; j < size; ++j) {
-					if (path.startsWith(logs.get(j))) {
+					if (indexOf(logs, path.substring(0, 10)) == -1) {
 						file.delete();
 						break;
 					}

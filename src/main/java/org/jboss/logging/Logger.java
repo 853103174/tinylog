@@ -65,7 +65,7 @@ public abstract class Logger implements Serializable, BasicLogger {
 	}
 
 	public boolean isEnabled(Level level) {
-		return Constant.LOG_LEVEL.indexOf(String.valueOf(level.getValue())) > -1;
+		return Constant.LOG_LEVEL <= level.getValue();
 	}
 
 	public boolean isTraceEnabled() {

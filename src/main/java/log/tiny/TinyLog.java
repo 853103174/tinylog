@@ -46,7 +46,7 @@ public class TinyLog {
 	 * @return
 	 */
 	public boolean isTraceEnabled() {
-		return Constant.LOG_LEVEL.indexOf("1") > -1;
+		return Constant.LOG_LEVEL == 1;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class TinyLog {
 	 * @return
 	 */
 	public boolean isDebugEnabled() {
-		return Constant.LOG_LEVEL.indexOf("2") > -1;
+		return Constant.LOG_LEVEL <= 2;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class TinyLog {
 	 * @return
 	 */
 	public boolean isInfoEnabled() {
-		return Constant.LOG_LEVEL.indexOf("3") > -1;
+		return Constant.LOG_LEVEL <= 3;
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class TinyLog {
 	 * @return
 	 */
 	public boolean isWarnEnabled() {
-		return Constant.LOG_LEVEL.indexOf("4") > -1;
+		return Constant.LOG_LEVEL <= 4;
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class TinyLog {
 	 * @return
 	 */
 	public boolean isErrorEnabled() {
-		return Constant.LOG_LEVEL.indexOf("5") > -1;
+		return Constant.LOG_LEVEL <= 5;
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class TinyLog {
 	 *            日志内容
 	 */
 	public void writeLog(String folder, int level, CharSequence chars) {
-		if (Constant.LOG_LEVEL.indexOf(String.valueOf(level)) > -1) {
+		if (Constant.LOG_LEVEL <= level) {
 			try {
 				String now = LocalDate.now().toString();
 				StringBuilder log = new StringBuilder(chars.length() + 100);

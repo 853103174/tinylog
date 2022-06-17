@@ -32,7 +32,7 @@ public class Constant {
 	public static final String CHARSET_NAME = CommUtil.getConfigByString("charset_name", "UTF-8");
 
 	/** 日志级别 */
-	public static final String LOG_LEVEL = CommUtil.getConfigByString("log_level", "1,2,3,4,5,6");
+	public static final int LOG_LEVEL = CommUtil.getConfigByInteger("log_level", 1);
 
 	/** 是否输出到控制台 */
 	public static final boolean PRINT_CONSOLE = CommUtil.getConfigByBoolean("print_console", Boolean.FALSE);
