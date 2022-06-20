@@ -13,7 +13,7 @@ public final class LoggerFactory {
 	}
 
 	public static Logger getLogger(Class<?> clazz) {
-		return getLogger("");
+		return getLogger(clazz.getName());
 	}
 
 	public static ILoggerFactory getILoggerFactory() {

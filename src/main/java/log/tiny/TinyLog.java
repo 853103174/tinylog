@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import log.util.CommUtil;
@@ -17,6 +20,8 @@ import log.util.Constant;
  */
 public class TinyLog {
 
+	// 类名称
+	private String className = "";
 	// 备份文件个数
 	private static int bakNum = 0;
 	// 当前写入的日期
@@ -25,6 +30,9 @@ public class TinyLog {
 	public static final String endStr = "\r\n";
 	// 是否输出到控制台
 	private static final boolean printConsole = Constant.PRINT_CONSOLE;
+	// 转换忽略的包名称
+	private static final List<String> asyncLoggers = "".equals(Constant.ASYNC_LOGGERS) ? new ArrayList<>()
+			: Arrays.asList(Constant.ASYNC_LOGGERS.split(","));
 
 	private TinyLog() {
 		CompletableFuture.runAsync(() -> {
@@ -38,6 +46,38 @@ public class TinyLog {
 
 	public static TinyLog getInstance() {
 		return LogHolder.instance;
+	}
+
+	public static TinyLog getInstance(Class<?> clazz) {
+		TinyLog log = LogHolder.instance;
+		log.setClassName(clazz.getName());
+
+		return log;
+	}
+
+	public static TinyLog getInstance(String name) {
+		TinyLog log = LogHolder.instance;
+		log.setClassName(name);
+
+		return log;
+	}
+
+	/**
+	 * 设置要打印的类名称
+	 * 
+	 * @param className
+	 */
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	/**
+	 * 获取要打印的类名称
+	 * 
+	 * @return
+	 */
+	public String getClassName() {
+		return className;
 	}
 
 	/**
@@ -234,6 +274,15 @@ public class TinyLog {
 	}
 
 	/**
+	 * 是否开启致命日志
+	 * 
+	 * @return
+	 */
+	public boolean isFatalEnabled() {
+		return Constant.LOG_LEVEL <= 6;
+	}
+
+	/**
 	 * 输出致命日志
 	 * 
 	 * @param msg
@@ -241,6 +290,26 @@ public class TinyLog {
 	 */
 	public void fatal(CharSequence msg) {
 		writeLog("FATAL", Constant.FATAL, msg);
+	}
+
+	/**
+	 * 输出致命日志
+	 * 
+	 * @param msg
+	 *            日志内容
+	 * @param throwable
+	 *            具体异常信息
+	 */
+	public void fatal(CharSequence msg, Throwable throwable) {
+		StringBuilder infos = new StringBuilder();
+		if (msg != null) {
+			infos.append(msg).append(TinyLog.endStr);
+		}
+		if (throwable != null) {
+			infos.append(CommUtil.getExpStack(throwable));
+		}
+
+		writeLog("FATAL", Constant.FATAL, infos);
 	}
 
 	/**
@@ -268,6 +337,11 @@ public class TinyLog {
 	public void writeLog(String folder, int level, CharSequence chars) {
 		if (Constant.LOG_LEVEL <= level) {
 			try {
+				for (int i = 0, size = asyncLoggers.size(); i < size; ++i) {
+					if (className.startsWith(asyncLoggers.get(i))) {
+						return;
+					}
+				}
 				String now = LocalDate.now().toString();
 				StringBuilder log = new StringBuilder(chars.length() + 100);
 				log.append("[").append(Constant.LEVEL_DESC.get(level)).append("] ").append(now).append(" ")
@@ -277,14 +351,14 @@ public class TinyLog {
 				if (printConsole) {
 					// 仅将日志打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(msg);
+						System.err.print(log);
 					} else {
-						System.out.print(msg);
+						System.out.print(log);
 					}
 				} else {
 					// 错误信息强制打印到控制台
 					if (Constant.ERROR == level || Constant.FATAL == level) {
-						System.err.print(msg);
+						System.err.print(log);
 					}
 					// 异步方式输出日志到文件
 					CompletableFuture.runAsync(() -> {

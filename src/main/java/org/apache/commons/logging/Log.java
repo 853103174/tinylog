@@ -32,4 +32,10 @@ public interface Log {
 
 	void error(Object msg, Throwable throwable);
 
+	boolean isFatalEnabled();
+
+	void fatal(Object msg);
+
+	void fatal(Object msg, Throwable throwable);
+
 }

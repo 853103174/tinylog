@@ -17,6 +17,18 @@ public class CommonsLogging implements Log {
 		return CommonsLoggingHolder.instance;
 	}
 
+	public static CommonsLogging getInstance(Class<?> clazz) {
+		log.setClassName(clazz.getName());
+		
+		return CommonsLoggingHolder.instance;
+	}
+
+	public static CommonsLogging getInstance(String name) {
+		log.setClassName(name);
+		
+		return CommonsLoggingHolder.instance;
+	}
+
 	@Override
 	public boolean isTraceEnabled() {
 		return log.isTraceEnabled();
@@ -90,6 +102,21 @@ public class CommonsLogging implements Log {
 	@Override
 	public void error(Object msg, Throwable throwable) {
 		log.error(msg.toString(), throwable);
+	}
+
+	@Override
+	public boolean isFatalEnabled() {
+		return log.isFatalEnabled();
+	}
+
+	@Override
+	public void fatal(Object msg) {
+		log.fatal(msg.toString());
+	}
+
+	@Override
+	public void fatal(Object msg, Throwable throwable) {
+		log.fatal(msg.toString(), throwable);
 	}
 
 }

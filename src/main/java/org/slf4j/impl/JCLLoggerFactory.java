@@ -17,7 +17,7 @@ public class JCLLoggerFactory implements ILoggerFactory {
 	public Logger getLogger(String name) {
 		Logger slf4jLogger = loggerMap.get(name);
 		if (slf4jLogger == null) {
-			Logger newInstance = new JCLLoggerAdapter(null, null);
+			Logger newInstance = new JCLLoggerAdapter(null, name);
 			Logger oldInstance = loggerMap.putIfAbsent(name, newInstance);
 			return oldInstance == null ? newInstance : oldInstance;
 		} else {

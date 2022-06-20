@@ -35,14 +35,12 @@ public abstract class Logger implements Serializable, BasicLogger {
 		}
 	}
 
-	private final String name;
-
 	protected Logger(final String name) {
-		this.name = name;
+		log.setClassName(name);
 	}
 
 	public String getName() {
-		return name;
+		return log.getClassName();
 	}
 
 	protected void doLog(Level level, String loggerClassName, Object msg, Object[] parameters, Throwable throwable) {

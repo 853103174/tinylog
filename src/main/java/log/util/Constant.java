@@ -46,6 +46,9 @@ public class Constant {
 	/** 日志文件保留天数 */
 	public static final int MAX_HISTORY = CommUtil.getConfigByInteger("max_history", 0);
 
+	/** 过滤掉的包名 */
+	public static final String ASYNC_LOGGERS = CommUtil.getConfigByString("async_loggers", "");
+
 	/** 日志类型描述map */
 	public static final Map<Integer, String> LEVEL_DESC = new HashMap<Integer, String>(8);
 	static{

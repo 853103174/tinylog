@@ -16,10 +16,14 @@ public class Logger {
 	}
 
 	public static Logger getLogger(Class<?> clazz) {
+		log.setClassName(clazz.getName());
+		
 		return LoggerHolder.instance;
 	}
 
 	public static Logger getLogger(String name) {
+		log.setClassName(name);
+		
 		return LoggerHolder.instance;
 	}
 

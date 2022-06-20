@@ -10,7 +10,8 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
 	private static final long serialVersionUID = 4141593417490482209L;
 	private static final TinyLog log = TinyLog.getInstance();
 
-	JCLLoggerAdapter(Log log, String name) {
+	JCLLoggerAdapter(Log logs, String name) {
+		log.setClassName(name);
 	}
 
 	private StringBuilder format(String format, Object... args) {

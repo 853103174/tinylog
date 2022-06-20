@@ -139,13 +139,16 @@ public class CommUtil {
 	 * @return 异常的字符串描述
 	 */
 	public static String getExpStack(Throwable throwable) {
-		ByteArrayOutputStream bo = new ByteArrayOutputStream();
-		PrintWriter writer = new PrintWriter(bo);
-		throwable.printStackTrace(writer);
-		writer.flush();
-		writer.close();
+		try (ByteArrayOutputStream bo = new ByteArrayOutputStream();
+			 PrintWriter writer = new PrintWriter(bo);) {
+			throwable.printStackTrace(writer);
+			writer.flush();
+			
+			return bo.toString();
+		} catch (IOException e) {
+		}
 
-		return bo.toString();
+		return "";
 	}
 
 	/**
